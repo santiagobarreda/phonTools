@@ -1,0 +1,32 @@
+exportPattern("^[^\\.]")
+
+S3method(anova, rcr)
+S3method(plot, rcr)
+S3method(plot, sound)
+S3method(plot, spectrogram)
+S3method(plot, template)
+S3method(print, anova.rcr )
+S3method(print, hotelling.test)
+S3method(print, rcr)
+S3method(print, sound)
+S3method(print, spectrogram)
+S3method(print, summary.rcr)
+S3method(print, template)
+S3method(summary, rcr)
+
+importFrom("grDevices", "colorRampPalette", "dev.cur", "dev.list")
+
+importFrom("graphics", ".filled.contour", "Axis", "abline", "arrows",
+     "axis", "box", "identify", "image", "layout", "layout.show",
+     "lines", "par", "plot", "plot.new", "plot.window", "points",
+     "polygon", "segments", "text", "title")
+
+importFrom("stats", "density", "dnorm", "fft", "filter", "frequency",
+     "glm", "lm", "model.frame", "model.matrix", "pf", "prcomp",
+     "printCoefmat", "pt", "rnorm", "sd", "t.test", "ts", "var")
+
+importFrom("utils", "flush.console", "head", "read.table", "tail")
+
+importFrom("graphics", "locator")
+
+importFrom("stats", "aggregate", "cov", "mahalanobis")

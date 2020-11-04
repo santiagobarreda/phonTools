@@ -1,0 +1,46 @@
+\name{multiplot}
+\alias{multiplot}
+\title{
+Plot with variable panel sizes
+}
+\description{
+Create plots with columns or rows of unequal sizes.
+}
+\usage{
+multiplot (n = 2, type = 'r', sizes = rep (1/n, n), show = FALSE)
+}
+\arguments{
+  \item{n}{The number of figure panels to be created.} 
+  \item{type}{If 'r', the panels will be arranged in rows, if 'c', the panels will be arranged in columns.} 
+  \item{sizes}{A vector indicating the percentage of the total width/height taken up by each row/column.} 
+  \item{show}{If TRUE, the resulting panel layout is shown to the user.} 
+}
+\details{
+This function is essentially a wrapper for the layout() function, which allows the user to create multi-panel figures in which each row or column is of a varying height/width.
+
+Please note that small rows or columns might result in an error related to figure margins being too large when you try to create a plot. These may be reduced with the 'mar' parameter for the par() function, which sometimes solves the problem. 
+}
+\author{
+Santiago Barreda <sbarreda@ucdavis.edu>
+}
+\examples{
+
+## uncomment and run
+
+data (sound)
+## run this instead to select your own sound for this demo.
+# sound = loadsound ()       
+
+#par (mar = c(4,4,1,1))
+#multiplot (n = 3, sizes = c(.25, .5, .25))  
+
+#plot (sound)
+#spectrogram (sound, dynamicrange = 50, maxfreq = 7000)
+#spectralslice (sound)
+
+}
+
+
+
+
+
