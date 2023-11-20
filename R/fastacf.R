@@ -2,6 +2,50 @@
 # All rights reserved.
 
 
+
+
+
+
+#' Fast Autocorrelation
+#' 
+#' Compute the ACF of a signal.
+#' 
+#' The autocorrelation function is calculated using the inverse Fourier
+#' transform applied to the power spectrum. This leads to much faster
+#' calculation times than the acf() function included in the typical R
+#' installation. Corrections for window type and length are carried out as
+#' described in Boersma (1993).
+#' 
+#' @param signal The signal, a numeric vector.
+#' @param lag.max The maximum lag value to be returned.
+#' @param window The type of window to be applied to the signal. Uses the
+#' windowfunc() function in this package. For no window select 'rectangular'.
+#' @param show If TRUE, the results are plotted.
+#' @param correct If TRUE, the output is corrected based on the window length
+#' and the window function that is applied.
+#' @return A dataframe with the following columns:
+#' 
+#' \item{lag }{ Indicates the lag value.} \item{acf }{ Indicates the ACF value
+#' at the lag.}
+#' @author Santiago Barreda <sbarreda@@ucdavis.edu>
+#' @references Boersma, P., (1993). Accurate short-term analysis of the
+#' fundamental frequency and the harmonics-to-noise ratio of a sampled sound.
+#' Proc. Instit. Phon. Sci. 17: 97-110.
+#' @examples
+#' 
+#' 
+#' ## Uncomment and run the code below to see the speed advantage.
+#' ## Raising the n makes the difference even more pronounced.
+#' #n = 25000
+#' #system.time ({
+#' #acf (rnorm (n), plot = F, lag.max = n)
+#' #})
+#' 
+#' #system.time ({
+#' #fastacf (rnorm (n), plot = F, lag.max = n)
+#' #})
+#' 
+#' 
 fastacf = function (signal, lag.max = length(signal), window = 'hann',
                     show = TRUE, correct = FALSE){
   if (class(signal)=='sound') signal = signal$sound

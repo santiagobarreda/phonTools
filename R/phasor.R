@@ -1,6 +1,39 @@
 # Copyright (c) 2015 Santiago Barreda
 # All rights reserved.
 
+
+
+
+
+#' Plot Phasors
+#' 
+#' Plot phasors representing one or more complex-valued variables.
+#' 
+#' Complex-valued variables may be created using the complex() function.
+#' 
+#' @param num A complex-valued variable to be plotted as a phasor, or a vector
+#' of such variables.
+#' @param scaled If TRUE, phasor magnitudes are scaled to 1.
+#' @param add If TRUE, phasors are plotted on existing figure. If FALSE, a new
+#' plot is created.
+#' @param circle If TRUE and scaled is TRUE, the unit circle is drawn.
+#' @param xlim x-axis range.
+#' @param ylim y-axis range.
+#' @param ... Additional arguments are passed to the internal call of 'plot'
+#' and 'arrows'.
+#' @author Santiago Barreda <sbarreda@@ucdavis.edu>
+#' @examples
+#' 
+#' 
+#' noise = rnorm (100)
+#' phasors = fft(noise)
+#' 
+#' par (mfrow = c(1,3))
+#' phasor (phasors)
+#' phasor (phasors, circle = TRUE)
+#' phasor (phasors, scaled = FALSE)
+#' 
+#' 
 phasor = function (num, scaled = TRUE, add = FALSE, circle = FALSE, xlim,ylim, ...){
   if (!is.complex(num)) stop ('Input must be complex valued.')
 

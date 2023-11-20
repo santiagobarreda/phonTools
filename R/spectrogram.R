@@ -1,6 +1,82 @@
 # Copyright (c) 2015 Santiago Barreda
 # All rights reserved.
 
+
+
+
+
+#' Create Spectrograms
+#' 
+#' Create and display spectrograms.
+#' 
+#' This function is used to create and plot spectrograms. The user may specify
+#' all analysis parameters, in addition to the colors used to display the
+#' spectrogram.
+#' 
+#' The function optionally returns a spectrogram object for which the plot()
+#' function is defined.
+#' 
+#' @aliases spectrogram plot.spectrogram print.spectrogram
+#' @param sound Either a numeric vector representing a sequence of samples
+#' taken from a sound wave or a sound object created with the loadsound() or
+#' makesound() functions.
+#' @param fs The sampling frequency in Hz. If a sound object is passed this
+#' does not need to be specified.
+#' @param windowlength The desired analysis window length in milliseconds.
+#' @param timestep If a negative value is given, -N, then N equally-spaced time
+#' steps are calculated. If a positive number is given, this is the spacing
+#' between adjacent analyses, in milliseconds.
+#' @param padding The amount of zero padding for each window, measured in units
+#' of window length. For example, if the window is 50 points, and padding = 10,
+#' 500 zeros will be appended to each window.
+#' @param preemphasisf Preemphasis of 6 dB per octave is added to frequencies
+#' above the specified frequency. For no preemphasis, set to a frequency higher
+#' than the sampling frequency.
+#' @param maxfreq the maximum frequency to be displayed for the spectrogram up
+#' to a maximum of fs/2. This is set to 5000 Hz by default.
+#' @param colors If TRUE, a color spectrogram will be displayed. If FALSE,
+#' greyscale is used. If a vector of colors is provided, these colors are used
+#' to create the spectrogram.
+#' @param nlevels The number of divisions to be used for the z-axis of the
+#' spectrogram. By default it is set equal to the dynamic range, meaning that a
+#' single color represents 1 dB on the z-axis.
+#' @param dynamicrange Values greater than this many dB below the maximum will
+#' be displayed in the same color.
+#' @param maintitle A string indicating the spectrogram title if one is
+#' desired.
+#' @param show If FALSE, no spectrogram is plotted. This is useful if the user
+#' would like to perform an action on an existing spectrogram plot without
+#' having to redraw it.
+#' @param window the window to be applied to the signal, applied by the
+#' windowfunc function in this package.
+#' @param windowparameter the parameter for the window to be applied to the
+#' signal, if appropriate.
+#' @param quality If TRUE, a contour plot is created, which results in a
+#' high-quality image that may be slow to plot. If FALSE, a lower-quality image
+#' is created that plots much faster.
+#' @return If output is set to TRUE, an object of class 'spectrogram', a list
+#' containing the elements:
+#' 
+#' \item{spectrogram}{a matrix containing the magnitude at each bin center.
+#' Frequencies differ across columns, while time varies between rows.}
+#' \item{fs}{the sampling frequency of the sound from which the spectrogram was
+#' made.} \item{windowlength}{the length of the analysis window used to create
+#' the spectrogram.} \item{timestep}{the timestep (in milliseconds) used to
+#' create the spectrogram.} \item{dynamicrange}{the dynamic range (in dB) of
+#' the spectrogram.} \item{color}{the colors used to create the spectrogram.
+#' This value corresponds to the 'color' parameter set when calling
+#' spectrogram().} \item{maxfreq}{the maximum desired frequency when plotting.}
+#' @author Santiago Barreda <sbarreda@@ucdavis.edu>
+#' @examples
+#' 
+#' ## uncoment and run. 
+#' data (sound)             ## use the example 'sound' object provided
+#' #sound = loadsound()       ## or run this line to use you own sound
+#' 
+#' spectrogram (sound)
+#' # spectrogram (sound, quality = TRUE)
+#' 
+#' 
 spectrogram = function (sound, fs = 22050, windowlength = 5, timestep = -1000,
 padding = 10, preemphasisf = 50, maxfreq = 5000, colors = TRUE, 
 dynamicrange = 50, nlevels = dynamicrange, maintitle = "", show = TRUE, 
