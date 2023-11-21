@@ -38,11 +38,11 @@
 preemphasis = function (input, cutoff = 50, fs = 22050, verify = FALSE, coeff = 0){
   soundout = 0
   tsout = 0
-  if (class(input) == "ts"){
+  if (inherits(input,"ts")){
     fs = frequency(input)
     tsout = 1
   }
-  if (class(input) == "sound") {
+  if (inherits(input,"sound")) {
     soundout = 1
     oldsound = input
     fs = input$fs

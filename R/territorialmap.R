@@ -2,7 +2,7 @@
 # All rights reserved.
 
 territorialmap = function (template, show = TRUE){
-  if (class(template)!='template') stop ('Templates must be created with createtemplate().')
+  if (!inherits(template,'template')) stop ('Templates must be created with createtemplate().')
   means = template$means
   covariance = template$covariance
   xlim = template$ranges[1,]

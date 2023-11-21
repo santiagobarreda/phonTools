@@ -52,11 +52,11 @@
 #' 
 pwelch = function (sound, points = 0, overlap = 0, padding = 0, window = 'hamming', 
                    show = TRUE, fs = 1, preemphasisf = 0, zeromax = TRUE, type,...){
-  if (class(sound) == "sound") {
+  if (inherits(sound,"sound")) {
     fs = sound$fs
     sound = sound$sound
   }
-  if (class(sound) == "ts") fs = frequency(sound)
+  if (inherits(sound,"ts")) fs = frequency(sound)
 
   if (preemphasisf > 0) sound = preemphasis (sound, preemphasisf, fs)
   

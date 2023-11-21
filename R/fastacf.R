@@ -48,7 +48,7 @@
 #' 
 fastacf = function (signal, lag.max = length(signal), window = 'hann',
                     show = TRUE, correct = FALSE){
-  if (class(signal)=='sound') signal = signal$sound
+  if (inherits(signal,'sound')) signal = signal$sound
  
   n = length (signal)
   if (lag.max > n) lag.max = n 

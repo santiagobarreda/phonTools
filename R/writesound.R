@@ -36,12 +36,12 @@
 #' writesound (snd, fs = 10000)
 #' 
 writesound = function (samples, filename = '', fs = 22050){
-  if (class(samples) == "sound"){
+  if (inherits(samples,"sound")){
     if (filename == '') filename = samples$filename
     fs = samples$fs
     samples = samples$sound
   }
-  if (class(samples) == "ts") fs = frequency (samples)
+  if (inherits(samples,"ts")) fs = frequency (samples)
   
   if (!is.numeric(samples)) stop("Non-numeric sample values given.")
   if (filename == '') filename = paste (deparse(substitute(samples)), '.wav', sep='')

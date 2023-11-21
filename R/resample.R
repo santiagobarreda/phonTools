@@ -41,11 +41,11 @@
 #' 
 resample = function (sound, newfs, oldfs, precision = 50, filterorder = 200, synthfilter = FALSE){
   soundout = 0; tsout = 0;
-  if (class(sound) == "ts"){
+  if (inherits(sound,"ts")){
     fs = frequency(sound)
     tsout = 1
   } 
-  if (class(sound) == "sound") {
+  if (inherits(sound,"sound")) {
     soundout = 1
     oldsound = sound
     oldfs = sound$fs

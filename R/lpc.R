@@ -38,8 +38,8 @@
 #' coeffs = lpc (sound, show = TRUE)
 #' 
 lpc = function (sound, order = round(fs/1000) + 3, fs = 10000, show = FALSE, add = FALSE, preemph = TRUE){
-  if (class(sound) == "ts") fs = frequency(sound)
-  if (class(sound) == "sound"){
+  if (inherits(sound,"ts")) fs = frequency(sound)
+  if (inherits(sound,"sound")){
     fs = sound$fs
     sound = sound$sound
   }

@@ -56,7 +56,7 @@
 #' 
 ldclassify = function (data, means, covariance, template = NULL, posterior = 'no'){
   
-  if (class(template) == 'template'){
+  if (inherits(template,'template')){
     covariance = template$covariance
     means = template$means
   }

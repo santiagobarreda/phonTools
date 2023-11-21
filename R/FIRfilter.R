@@ -64,11 +64,11 @@ FIRfilter = function (sound, from = 0, to = fs/2, fs = 22050, order = 200,
                       verify = FALSE, impulse = NULL, pad = TRUE){
   soundout = 0; tsout = 0;	
   if (order%%2) order = order +1
-  if (class(sound) == "ts"){
+  if (inherits(sound, "ts")){
     fs = frequency(sound)
     tsout = 1
   }
-  if (class(sound) == "sound") {
+  if (inherits(sound,"sound")) {
     soundout = 1
     tmp = sound
     fs = sound$fs

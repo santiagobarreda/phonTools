@@ -53,8 +53,8 @@ findformants = function (sound, fs = 10000, coeffs = NULL, maxbw = 600,
 minformant = 200, verify = TRUE, showbws = FALSE, showrejected = TRUE){
   if (missing (sound)) sound = 1
 
-  if (class(sound) == "ts") fs = frequency(sound)
-  if (class(sound) == "sound") {
+  if (inherits(sound,"ts")) fs = frequency(sound)
+  if (inherits(sound,"sound")) {
     fs = sound$fs
     sound = sound$sound
   } 

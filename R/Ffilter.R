@@ -72,11 +72,11 @@ Ffilter = function (sound, ffs, bwp = 0.06, minbw = 60, fs = 22050, verify = FAL
   if (is.numeric(nrow(bwp))) bwsspecified = TRUE
   
   soundout = 0; tsout = 0;  
-  if (class(sound) == "ts"){
+  if (inherits(sound,"ts")){
     fs = frequency(sound)
     tsout = 1
   }
-  if (class(sound) == "sound") {
+  if (inherits(sound,"sound")) {
     fs = sound$fs
     oldsound = sound
     sound = sound$sound

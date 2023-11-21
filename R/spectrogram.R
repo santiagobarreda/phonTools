@@ -82,8 +82,8 @@ padding = 10, preemphasisf = 50, maxfreq = 5000, colors = TRUE,
 dynamicrange = 50, nlevels = dynamicrange, maintitle = "", show = TRUE, 
 window = 'kaiser', windowparameter = 3, quality = FALSE){
 
-  if (class(sound) == "ts") fs = frequency(sound)
-  if (class(sound) == "sound"){
+  if (inherits(sound,"ts")) fs = frequency(sound)
+  if (inherits(sound,"sound")){
     fs = sound$fs
     sound = sound$sound
   }

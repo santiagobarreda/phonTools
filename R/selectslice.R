@@ -39,7 +39,7 @@
 #' 
 #' 
 selectslice = function (specobject, n = 1, plot = TRUE,...){
-  if (!(class(specobject) == 'spectrogram')) stop ('Spectrogram object must be provided.')
+  if (!inherits(specobject,'spectrogram')) stop ('Spectrogram object must be provided.')
   if (n < 1 | n %% 1 > 0) stop ('Positive integer n only.')
 
   if (plot) plot (specobject, ...)

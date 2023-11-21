@@ -32,9 +32,9 @@
 #' # spectralslice (clipped)
 #' 
 snip = function (object, show = TRUE){
-  if (class(object) != "spectrogram" & class(object) != "sound") 
+  if (!inherits(object,"spectrogram") & !inherits(object,"sound")) 
     stop("Input must be a sound or spectrogram object")
-  if (class(object) == "sound") {
+  if (inherits(object,"sound")) {
     time = 1:length(object$sound)/object$fs * 1000
     y = object$sound
     touse = seq(1, length(time), 2)
@@ -57,7 +57,7 @@ snip = function (object, show = TRUE){
       xlab = "Time (ms)", ylab = "Amplitude", type = "l", xaxs = "i")
     output = newsound
   }
-  if (class(object) == "spectrogram") {
+  if (inherits(object,"spectrogram")) {
     plot(object)
     times = as.numeric(rownames(object$spectrogram))
     times = seq(head(times, 1), tail(times, 1), length.out = 1000)

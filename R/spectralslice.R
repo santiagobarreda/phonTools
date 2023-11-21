@@ -52,8 +52,8 @@ spectralslice = function (sound, padding = length(sound) * 2, fs = 1, show = TRU
     add = FALSE, window = "kaiser", windowparameter = 3, zeromax = TRUE, 
     preemphasisf = 0, type, line = FALSE, removeDC = TRUE, ...){
 	
-   if (class(sound) == "ts") fs = frequency (sound)
-   if (class(sound) == "sound") {
+   if (inherits(sound,"ts")) fs = frequency (sound)
+   if (inherits(sound,"sound")) {
         fs = sound$fs
         sound = sound$sound
     }

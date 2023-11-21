@@ -65,8 +65,8 @@ pitchtrack = function (sound, f0range = c(60,400), timestep = 2, fs = 22050, min
   if (minacf < 0) stop ('minacf must be positive.')
   if (timestep<0) stop ('Timestep must be positive.')
  
-  if (class(sound) == "ts") fs = frequency(sound)
-  if (class(sound) == "sound") {
+  if (inherits(sound,"ts")) fs = frequency(sound)
+  if (inherits(sound,"sound")) {
     fs = sound$fs
     sound = sound$sound
   }  

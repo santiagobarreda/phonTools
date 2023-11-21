@@ -46,8 +46,8 @@
 #' 
 powertrack = function (sound, timestep = 5, windowlength = 30, 
                        fs = 22050, show = TRUE, zeromax = TRUE, ...){
-  if (class(sound) == "ts") fs = frequency(sound)
-  if (class(sound) == "sound") {
+  if (inherits(sound,"ts")) fs = frequency(sound)
+  if (inherits(sound,"sound")) {
     fs = sound$fs
     sound = sound$sound
   }  

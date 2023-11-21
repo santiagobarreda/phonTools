@@ -59,8 +59,8 @@ formanttrack = function (sound, timestep = 5, windowlength = 30,
 formants = 5, cutoff = 5000, minformant = 200, maxbw = 600, 
 fs = 22050, show = TRUE, periodicity = .5, returnbw = FALSE){
 
-  if (class(sound) == "ts") fs = frequency(sound)
-  if (class(sound) == "sound") {
+  if (inherits(sound,"ts")) fs = frequency(sound)
+  if (inherits(sound,"sound")) {
     fs = sound$fs
     sound = sound$sound
   }     

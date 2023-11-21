@@ -1,10 +1,5 @@
-# Copyright (c) 2014 Santiago Barreda
+# Copyright (c) 2023 Santiago Barreda
 # All rights reserved.
-
-
-
-
-
 
 #' Filtering by Synthesis
 #' 
@@ -36,28 +31,29 @@
 #' @author Santiago Barreda <sbarreda@@ucdavis.edu>
 #' @examples
 #' 
-#' 
-#' ## uncomment and run
-#' ##  white noise
+#' #' \dontrun{
+#  white noise
 #' noise = rnorm(5000)
+#' # low-pass filter
+#' phonTools::synthfilter (noise, band = c(0, .25), verify = TRUE)
+#'  
+#' #  band-pass filter
+#' phonTools::synthfilter (noise, band = c(.15, .25), verify = TRUE)
 #' 
-#' ## low-pass filter
-#' #synthfilter (noise, band = c(0, .25), verify = TRUE)
+#' #  high-pass filter
+#' phonTools::synthfilter (noise, band = c(.35, .5), verify = TRUE)
+#' }
 #' 
-#' ##  band-pass filter
-#' synthfilter (noise, band = c(.15, .25), verify = TRUE)
-#' 
-#' ##  high-pass filter
-#' #synthfilter (noise, band = c(.35, .5), verify = TRUE)
-#' 
-#' 
+ 
+
+
 synthfilter = function (sound, band = c(0,fs/4), fs = 1, verify = FALSE, attenuation = 0){
   soundout = 0; tsout = 0;	
-  if (class(sound) == "ts"){
+  if (inherits(sound,"ts")){
     fs = frequency(sound)
     tsout = 1
   }
-  if (class(sound) == "sound") {
+  if (inherits(sound,"sound")) {
     soundout = 1
     fs = sound$fs
     oldsound = sound
