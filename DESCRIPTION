@@ -1,7 +1,7 @@
 Package: phonTools
 Title: Tools for Phonetic and Acoustic Analyses
-Version: 0.3-0.0
-Date: 2022-03-12
+Version: 0.2-3.0
+Date: 2024-01-06
 Authors@R: 
   c(person(given = "Santiago",
            family = "Barreda",
@@ -10,7 +10,6 @@ Authors@R:
 Maintainer: Santiago Barreda <sbarreda@ucdavis.edu>
 Description: Contains tools for the organization, display, and analysis of the sorts of data frequently encountered in phonetics research and experimentation, including the easy creation of IPA vowel plots, and the creation and manipulation of WAVE audio files.
 License: MIT + file LICENSE
-URL: http://www.santiagobarreda.com/rscripts.html
 Encoding: UTF-8
 LazyData: true
 Depends: 
