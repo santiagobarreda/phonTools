@@ -1,9 +1,5 @@
-# Copyright (c) 2015 Santiago Barreda
+# Copyright (c) 2023 Santiago Barreda
 # All rights reserved.
-
-
-
-
 
 
 #' Hotelling's T2 Test
