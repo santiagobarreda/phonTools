@@ -43,20 +43,17 @@ performance of the function.
 }
 \examples{
 
-
-## uncomment and run
-##  white noise
+#' \dontrun{
 noise = rnorm(5000)
+# low-pass filter
+phonTools::synthfilter (noise, band = c(0, .25), verify = TRUE)
+ 
+#  band-pass filter
+phonTools::synthfilter (noise, band = c(.15, .25), verify = TRUE)
 
-## low-pass filter
-#synthfilter (noise, band = c(0, .25), verify = TRUE)
-
-##  band-pass filter
-synthfilter (noise, band = c(.15, .25), verify = TRUE)
-
-##  high-pass filter
-#synthfilter (noise, band = c(.35, .5), verify = TRUE)
-
+#  high-pass filter
+phonTools::synthfilter (noise, band = c(.35, .5), verify = TRUE)
+}
 
 }
 \author{
