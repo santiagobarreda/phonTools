@@ -1,9 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
 
 #' Create Spectrograms
 #' 
@@ -16,6 +10,7 @@
 #' The function optionally returns a spectrogram object for which the plot()
 #' function is defined.
 #' 
+#' @export
 #' @aliases spectrogram plot.spectrogram print.spectrogram
 #' @param sound Either a numeric vector representing a sequence of samples
 #' taken from a sound wave or a sound object created with the loadsound() or
