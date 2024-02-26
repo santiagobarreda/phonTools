@@ -1,10 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
-
 
 #' Error bars.
 #' 
@@ -12,6 +5,7 @@
 #' added error bars.
 #' 
 #' 
+#' @export
 #' @aliases errorbars errorbar
 #' @param x X axis positions.
 #' @param y Y axis positions.
