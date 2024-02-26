@@ -1,10 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
-
 
 #' Normalize Vowels
 #' 
@@ -41,6 +34,7 @@
 #' vowel spaces dues to the possibly differing estimates of means and stadard
 #' deviations of the different formants.
 #' 
+#' @export
 #' @param formants A matrix or dataframe containing formant frequency
 #' information for vowels. Each row is assumed to indicate data from a single
 #' vowel. At least two columns (indicating information regarding at least two
