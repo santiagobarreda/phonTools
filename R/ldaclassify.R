@@ -1,10 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
-
 
 #' Linear Discriminant Classification
 #' 
@@ -20,6 +13,7 @@
 #' Mean and covariance matrices can be made easily for data using the
 #' createtemplate() function included in this package.
 #' 
+#' @export
 #' @param data A matrix in which each row represents an item to be classified,
 #' and each column represents an observation from a variable describing the
 #' item.
