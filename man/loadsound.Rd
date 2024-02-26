@@ -6,20 +6,24 @@
 \alias{plot.sound}
 \title{Load WAV files into R}
 \usage{
-loadsound(filename = 0)
+loadsound(filename = NA, channel = "left")
 }
 \arguments{
 \item{filename}{A string indicating the file name of the WAV file to be
 loaded. If no filename is provided, a dialog box will open allowing the user
 to select a file.}
+
+\item{channel}{A string indicating the channel to be loaded. The default is
+'left'. If 'right' is selected, the right channel will be loaded.}
 }
 \value{
 An object of class 'sound', a list containing the elements:
 
 \item{filename}{A vector containing the filename of the WAV file.}
-\item{fs}{The sampling frequency of the sound. } \item{duration}{The
-duration of the sound, in milliseconds. } \item{sound}{A vector of numeric
-values representing the sampled sound. }
+\item{fs}{The sampling frequency of the sound. } 
+\item{duration}{The duration of the sound, in milliseconds. } 
+\item{sound}{A vector of numeric values representing the sampled sound. }
+\item{bit}{The wav file bit rate. }
 }
 \description{
 A function which allows WAV files to be loaded into R.
