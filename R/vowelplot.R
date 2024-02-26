@@ -1,10 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
-
 
 #' Plot Vowels
 #' 
@@ -24,6 +17,7 @@
 #' There may be issues when exporting figures to PDF using IPA font. Exporting
 #' plots directly as images works 'out of the box'.
 #' 
+#' @export
 #' @param f1s A numeric vector indicating vowel F1 frequencies.
 #' @param f2s A numeric vector indicating vowel F2 frequencies.
 #' @param labels A vector with labels for vowels. Must be provided for any
