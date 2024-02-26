@@ -1,6 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
 
 summary.rcr <-
 function (object, ...){
