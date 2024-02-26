@@ -1,9 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
 
 #' Snip/Zoom
 #' 
@@ -15,6 +9,7 @@
 #' object is created and returned that contains only the data in between the
 #' two designated points.
 #' 
+#' @export
 #' @param object A 'sound' or 'spectrogram' object to be truncated.
 #' @param show If TRUE, the selected subsection is displayed, resulting in zoom
 #' functionality.
