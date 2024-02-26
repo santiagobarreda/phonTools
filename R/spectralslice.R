@@ -6,6 +6,7 @@
 #' A function to plot the power spectrum of a vector representing a sound wave.
 #' 
 #' 
+#' @export
 #' @aliases spectralslice slice
 #' @param sound A vector representing a sound wave, or a 'sound' object.
 #' @param padding The amount of zero-padding desired for the analysis, in
