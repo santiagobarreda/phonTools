@@ -1,5 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
 
 mscohere = function (signal1, signal2, points = 0, overlap = 0, padding = 0, 
             pval = TRUE, window = 'hamming', show = TRUE, fs = 1, removeDC = TRUE, 
