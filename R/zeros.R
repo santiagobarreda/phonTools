@@ -12,6 +12,7 @@
 #' If a 2D matrix or dataframe is given, a matrix of zeros with the name number
 #' of rows and columns is returned.
 #' 
+#' @export
 #' @param x A scalar, vector, or two dimensional matrix.
 #' @param y An optional parameter to create a 2D matrix.
 #' @author Santiago Barreda <sbarreda@@ucdavis.edu>
