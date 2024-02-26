@@ -1,5 +1,5 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
+
+#' @export
 
 plot.template = function (x, xsampa = FALSE, territorial = FALSE, ...){
   if (!territorial | is.null(x$territory)){
