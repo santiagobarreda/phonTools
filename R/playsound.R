@@ -1,10 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
-
 
 #' Play Sounds
 #' 
@@ -17,6 +10,7 @@
 #' path, it seems like this function should work on Linux and OSX, though it
 #' has only been tested on a Windows computer.
 #' 
+#' @export
 #' @aliases playsound play
 #' @param sound Either a sound object, or a numeric vector to be played.
 #' @param path The location of VLC.exe on your computer. 'default' provides the
