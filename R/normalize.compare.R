@@ -22,6 +22,7 @@
 #' model trained on the normalized formant-frequencies using the given
 #' category-labels.
 #' 
+#' @export
 #' @param normd A list of dataframes containing the different formant data to
 #' be compared. Each dataframe must contain columns called "f1", "f2",
 #' "speaker", and "vowel", in any order.
