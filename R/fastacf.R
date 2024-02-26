@@ -1,10 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
-
 
 #' Fast Autocorrelation
 #' 
@@ -16,6 +9,7 @@
 #' installation. Corrections for window type and length are carried out as
 #' described in Boersma (1993).
 #' 
+#' @export
 #' @param signal The signal, a numeric vector.
 #' @param lag.max The maximum lag value to be returned.
 #' @param window The type of window to be applied to the signal. Uses the
