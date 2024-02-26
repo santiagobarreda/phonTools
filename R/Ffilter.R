@@ -1,10 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
-
 
 #' Formant Filtering
 #' 
@@ -23,6 +16,7 @@
 #' the formant center frequencies by default. If only one value is provided,
 #' this is assumed to be the desired value for all formants.
 #' 
+#' @export
 #' @param sound A numeric vector representing a waveform, or a 'sound' object
 #' created with the loadsound() or makesound() functions.
 #' @param ffs A list of vectors of initial and final center frequencies for
