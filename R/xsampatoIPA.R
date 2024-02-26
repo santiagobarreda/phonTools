@@ -1,10 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
-
 
 #' Convert X-Sampa to IPA
 #' 
@@ -20,6 +13,7 @@
 #' **There may be issues when exporting figures to PDF using IPA font.
 #' Exporting plots directly as images works 'out of the box'**
 #' 
+#' @export
 #' @param vowels A vector representing vowel labels in x-sampa to be converted
 #' to values that can be used to plot the corresponding IPA symbols. If this is
 #' not provided a plot comparing IPA to x-sampa representations is displayed.
