@@ -1,9 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
 
 #' Plot with variable panel sizes
 #' 
@@ -18,6 +12,7 @@
 #' reduced with the 'mar' parameter for the par() function, which sometimes
 #' solves the problem.
 #' 
+#' @export
 #' @param n The number of figure panels to be created.
 #' @param type If 'r', the panels will be arranged in rows, if 'c', the panels
 #' will be arranged in columns.
