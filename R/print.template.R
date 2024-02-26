@@ -1,5 +1,5 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
+
+#' @export
 
 print.template = function (x, ...){
   cat ('\nTemplate with the following category-means:','\n\n')
