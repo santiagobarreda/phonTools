@@ -15,6 +15,7 @@
 #' If verify is TRUE, a plot is created which allows the user to inspect the
 #' performance of the function.
 #' 
+#' @export
 #' @param sound A numeric vector representing a waveform, or a 'sound' object
 #' created with the loadsound() or makesound() functions.
 #' @param band A vector with exactly two elements, the first specifying the
@@ -31,7 +32,7 @@
 #' @author Santiago Barreda <sbarreda@@ucdavis.edu>
 #' @examples
 #' 
-#' #' \dontrun{
+#' \dontrun{
 #  white noise
 #' noise = rnorm(5000)
 #' # low-pass filter
