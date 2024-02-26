@@ -1,9 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
 
 #' Standard deviation Ellipse
 #' 
@@ -13,6 +7,7 @@
 #' ellipses around a set of observations (if 'means' is not specified) 2) To
 #' draw ellipses and circles on plots (if 'means' is specified).
 #' 
+#' @export
 #' @param points A matrix with two columns in which each row is a different
 #' observation from a bivariate normal distribution. Optionally, a 2 by 2
 #' covariance matrix may be specified directly in conjunction with the means
