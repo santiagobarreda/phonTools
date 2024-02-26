@@ -1,10 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
-
 
 #' Interpolation
 #' 
@@ -14,6 +7,7 @@
 #' between the points provided by the user. Optionally, a linear interpolation
 #' between the points may be carried out.
 #' 
+#' @export
 #' @param y A vector of 'knots', between which the function will interpolate
 #' points.
 #' @param x The 'x' coordinates corresponding to each knot. If not specified,
