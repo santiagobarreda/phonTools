@@ -1,16 +1,10 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
-
 
 #' Add Preemphasis
 #' 
 #' Single-zero preemphasis filter.
 #' 
 #' 
+#' @export
 #' @param input Either a numeric vector representing a sequence of samples
 #' taken from a sound wave or a sound object created with the loadsound() or
 #' makesound() functions.
