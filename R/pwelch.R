@@ -1,9 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
 
 #' Welch's Power Spectral Density Estimate
 #' 
@@ -13,6 +7,7 @@
 #' finds the power spectrum of each one, and then finds the average across all
 #' windowed sections.
 #' 
+#' @export
 #' @param sound A vector representing a sound wave, or a 'sound' object.
 #' @param points The number of points to be included in each window. If not
 #' specified, the sound is divided into 10 equally-sized windows.
