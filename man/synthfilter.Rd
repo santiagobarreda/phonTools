@@ -43,7 +43,7 @@ performance of the function.
 }
 \examples{
 
-#' \dontrun{
+\dontrun{
 noise = rnorm(5000)
 # low-pass filter
 phonTools::synthfilter (noise, band = c(0, .25), verify = TRUE)
