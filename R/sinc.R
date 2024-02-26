@@ -1,10 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
-
 
 #' Sinc Function
 #' 
@@ -14,6 +7,7 @@
 #' 
 #' The formula for the normalized sinc function is y = sin(x*pi)/(x*pi).
 #' 
+#' @export
 #' @param x A vector of x-axis points at which the sinc function will be
 #' sampled.
 #' @param normalized If TRUE, a normalized sinc function is returned.
