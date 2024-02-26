@@ -1,10 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
-
 
 #' Rotate
 #' 
@@ -12,6 +5,7 @@
 #' the input.
 #' 
 #' 
+#' @export
 #' @param xy Either, a vector of complex-valued observations, or a matrix with
 #' 2 columns and any number of rows.
 #' @param angle The desired angle of rotation, in radians.
