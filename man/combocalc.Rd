@@ -22,7 +22,6 @@ Calculate the number of combinations or permutations for a number of
 objects.
 }
 \examples{
-
 # combinations, no repetition
 combocalc (10, 4, order = FALSE, repetition = FALSE)
 # combinations, with repetition
