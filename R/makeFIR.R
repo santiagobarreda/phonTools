@@ -1,10 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
-
 
 #' Create a Digital Filter
 #' 
@@ -19,6 +12,7 @@
 #' 'undesirable' behaviour between specified frequencies. This can be minimized
 #' by increasing the filter order and selecting an appropriate window function.
 #' 
+#' @export
 #' @param frequency The frequencies at which the frequency response of the
 #' filter will be specified. The first frequency specified must be equal to 0.
 #' The final frequency specified is assumed to be equal to fs/2.
