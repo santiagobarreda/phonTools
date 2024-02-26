@@ -1,10 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
-
 
 #' Number of Unique Elements
 #' 
@@ -14,6 +7,7 @@
 #' of levels. This provides the number of unique elements in a vector,
 #' something I find I frequently need.
 #' 
+#' @export
 #' @param vector The vector of interest.
 #' @author Santiago Barreda <sbarreda@@ucdavis.edu>
 #' @examples
