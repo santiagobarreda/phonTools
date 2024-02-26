@@ -8,13 +8,15 @@ vowelsynth(
   ffs = c(270, 2200, 2800, 3400, 4400),
   fbw = 0.06,
   dur = 300,
+  f0precision = 10,
   f0 = c(120, 100),
   fs = 10000,
   verify = FALSE,
   returnsound = TRUE,
-  noise1 = 0.001,
-  noise2 = 0.01,
-  power = NULL
+  noisesd = 0.5,
+  power = NULL,
+  noiseshape = FALSE,
+  preemph = TRUE
 )
 }
 \arguments{
@@ -30,6 +32,8 @@ more information.}
 \item{dur}{The desired duration of the sound, in milliseconds. Vowels must
 be at least 50 ms long.}
 
+\item{f0precision}{An integer specifying the precision which which f0 differences can be expressed.}
+
 \item{f0}{The desired f0 (pitch) of the sound. Optionally, a vector with
 initial and final f0 values may be provided.}
 
@@ -42,15 +46,16 @@ plotted to allow the user to visually verify the process.}
 can be used with several other functions included in this package. If FALSE,
 only a vector representing the sound wave is returned.}
 
-\item{noise1}{Noise to be added to the source, before formant filtering, as
+\item{noisesd}{Standard deviation of noise to be added to the source, as
 a proportion of the source RMS amplitude.}
-
-\item{noise2}{Noise to be added to the output, as a proportion of the signal
-RMS amplitude.}
 
 \item{power}{A desired power contour can be specified. Must be of the same
 length as the output sound, or the sound is truncated to the length of this
 vector.}
+
+\item{noiseshape}{If TRUE noise varies with glottis openin}
+
+\item{preemph}{If TRUE, the output sound is preemphasized.}
 }
 \value{
 A vector or 'sound' object representing the filtered sound.
@@ -75,32 +80,30 @@ the formant center frequencies by default. If only one value is provided,
 this is assumed to be the desired value for all formants.
 }
 \examples{
-
-
-## uncomment to run
+\dontrun{
 
 ## The following examples are based on my vowels 
 i = vowelsynth (returnsound = FALSE, f0 = c(125,105))
-#a = vowelsynth (ffs = c(700, 1300, 2300, 3400, 4400), 
-#returnsound = FALSE, f0 = c(125,105))
-#e = vowelsynth (ffs = c(400, 2000, 2600, 3400, 4400), 
-#returnsound = FALSE, f0 = c(125,105))
-#o = vowelsynth (ffs = c(400, 900, 2300, 3400, 4400), 
-#returnsound = FALSE, f0 = c(125,105))
-#u = vowelsynth (ffs = c(300, 750, 2300, 3400, 4400), 
-#returnsound = FALSE, f0 = c(125,105))
+a = vowelsynth (ffs = c(700, 1300, 2300, 3400, 4400), 
+returnsound = FALSE, f0 = c(125,105))
+e = vowelsynth (ffs = c(400, 2000, 2600, 3400, 4400), 
+returnsound = FALSE, f0 = c(125,105))
+o = vowelsynth (ffs = c(400, 900, 2300, 3400, 4400), 
+returnsound = FALSE, f0 = c(125,105))
+u = vowelsynth (ffs = c(300, 750, 2300, 3400, 4400), 
+returnsound = FALSE, f0 = c(125,105))
 
-#silence = rep(0, 1000)
-#vowels = c(a, silence, e, silence, i, silence, o, silence, u)
+silence = rep(0, 1000)
+vowels = c(a, silence, e, silence, i, silence, o, silence, u)
 
-#writesound (vowels, filename = 'vowels.wav', fs = 10000)
+writesound (vowels, filename = 'vowels.wav', fs = 10000)
 
-## an example of a synthetic diphthong
-#ei = vowelsynth (ffs = list(c(400, 2000, 2600, 3400, 4400), 
-#c(270, 2200, 2800, 3400, 4400)), f0 = c(125,105))
-#writesound (ei)
-#spectrogram (ei, pause = FALSE)
-
+# an example of a synthetic diphthong
+ei = vowelsynth (ffs = list(c(400, 2000, 2600, 3400, 4400), 
+c(270, 2200, 2800, 3400, 4400)), f0 = c(125,105))
+writesound (ei)
+spectrogram (ei, pause = FALSE)
+}
 
 }
 \references{
