@@ -1,10 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
-
 
 #' Random multivariate normal variables
 #' 
@@ -15,6 +8,7 @@
 #' uncorrelated. If the number of dimensions is not specified, a bivariate
 #' distribution is assumed.
 #' 
+#' @export
 #' @param n The number of vectors to be drawn.
 #' @param k The dimension of the vectors to be drawn.
 #' @param means A vector of means, one for each dimension.
