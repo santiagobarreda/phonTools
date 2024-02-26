@@ -1,10 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
-
 
 #' Find the Peaks
 #' 
@@ -14,6 +7,7 @@
 #' than both the elements that surround it. If no peaks are found, a value of
 #' zero is returned.
 #' 
+#' @export
 #' @param x A vector whose peaks are to be located.
 #' @param show If TRUE, the vector is plotted and peaks are indicated with red
 #' triangles.
