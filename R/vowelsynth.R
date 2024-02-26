@@ -43,6 +43,7 @@
 #' @param power A desired power contour can be specified. Must be of the same
 #' length as the output sound, or the sound is truncated to the length of this
 #' vector. 
+#' @param preemph If TRUE, the output sound is preemphasized.
 #' @return A vector or 'sound' object representing the filtered sound.
 #' @author Santiago Barreda <sbarreda@@ucdavis.edu>
 #' @references Klatt, D. H. (1980). Software for a cascade/parallel formant
