@@ -1,10 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
-
 
 #' Window Function
 #' 
@@ -13,6 +6,7 @@
 #' A window function is generated, of the type and length specified by the
 #' user. This is returned as a numeric vector.
 #' 
+#' @export
 #' @param npoints The desired window length, in points. If a vector is given,
 #' the window will have the same length as the vector.
 #' @param type A string indicating the type of window desired. For the sake of
