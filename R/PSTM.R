@@ -1,10 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
-
 
 #' Probabilistic Sliding Template Model
 #' 
@@ -33,6 +26,7 @@
 #' system of Edmonton English speakers. For in-depth details regarding the
 #' specifics of this model, please see Nearey & Assmann (2007).
 #' 
+#' @export
 #' @aliases PSTM mscohere iplot outlier.plot
 #' @param ffs A matrix of formant frequencies in which each row represents a
 #' single vowel token, and each column represents a formant frequency. At least
