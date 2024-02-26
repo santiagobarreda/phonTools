@@ -1,10 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
-
 
 #' Frequency Response
 #' 
@@ -14,6 +7,7 @@
 #' digital filter whose transfer function is determined by the numerator and
 #' denominator filter coefficients given in b and a.
 #' 
+#' @export
 #' @param b The moving-average (MA), numerator coefficients of the filter.
 #' @param a The autoregressive (AR), denominator coefficients of the filter.
 #' Please note that the leading 1 at a[0] is not assumed.
