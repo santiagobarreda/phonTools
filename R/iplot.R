@@ -1,5 +1,3 @@
-# Copyright (c) 2020 Santiago Barreda
-# All rights reserved.
 
 
 iplot = function (y, x, lines, group = NULL, ylab ='', xlabels = c('',''), bars = 'se', add = FALSE, cols = c(1,1)){
