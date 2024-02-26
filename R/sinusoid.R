@@ -1,9 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
 
 #' Create Sinusoids
 #' 
@@ -13,6 +7,7 @@
 #' The number of frequencies specified must equal the number of amplitudes and
 #' initial phases.
 #' 
+#' @export
 #' @aliases sinusoid sinusoids
 #' @param freqs A vector of frequencies, one for each desired sinusoid.
 #' @param amps A vector of peak amplitudes, one for each desired sinusoid.
