@@ -1,10 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
-
 
 #' Formant Tracking
 #' 
@@ -19,6 +12,7 @@
 #' When plotting, different colors are used for each formant to allow the user
 #' to distinguish these.
 #' 
+#' @export
 #' @param sound A numeric vector representing a waveform, or a 'sound' object
 #' created with the loadsound() or makesound() functions.
 #' @param timestep How far the analysis window will advance, in milliseconds.
