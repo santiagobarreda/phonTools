@@ -1,10 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
-
 
 #' Power tracking
 #' 
@@ -14,6 +7,7 @@
 #' parameters of the function. A Hann window is applied to each section prior
 #' to analysis. Sections with zero power are ignored and not returned.
 #' 
+#' @export
 #' @param sound A numeric vector representing a waveform, or a 'sound' object
 #' created with the loadsound() or makesound() functions.
 #' @param timestep Determines how far the window will be moved for each
