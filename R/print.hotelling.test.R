@@ -1,8 +1,7 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
 
-print.hotelling.test <-
-function (x, ...){
+#' @export
+
+print.hotelling.test = function (x, ...){
 
   if (x$samples == 1){
     cat ('\nHotelling\'s One-Sample T2-test\n')
