@@ -1,9 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
 
 #' Linear Discriminant Boundary
 #' 
@@ -12,6 +6,7 @@
 #' boundary line between the two categories.
 #' 
 #' 
+#' @export
 #' @param mean1 A mean vector for category 1, must contain 2 elements.
 #' @param mean2 A mean vector for category 2, must contain 2 elements.
 #' @param covariance A 2x2 covariance matrix for both distributions.
