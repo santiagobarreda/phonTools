@@ -1,5 +1,5 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
+
+#' @export
 
 plot.spectrogram = function (x, y, ylim,xlim, quality = FALSE, ...){
   if (x$colors[1] == TRUE)
