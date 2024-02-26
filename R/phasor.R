@@ -1,9 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
 
 #' Plot Phasors
 #' 
@@ -11,6 +5,7 @@
 #' 
 #' Complex-valued variables may be created using the complex() function.
 #' 
+#' @export
 #' @param num A complex-valued variable to be plotted as a phasor, or a vector
 #' of such variables.
 #' @param scaled If TRUE, phasor magnitudes are scaled to 1.
