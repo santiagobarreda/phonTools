@@ -1,6 +1,3 @@
-# Copyright (c) 2023 Santiago Barreda
-# All rights reserved.
-
 
 #' Hotelling's T2 Test
 #' 
@@ -15,6 +12,7 @@
 #' This function is only designed for multivariate tests of location. If a
 #' univariate test is desired, please use a t-test.
 #' 
+#' @export
 #' @aliases hotelling.test print.hotelling.test
 #' @param matrix1 A numeric matrix or dataframe in which each row represents an
 #' observation of a multivariate random variable, and each column represents a
@@ -43,25 +41,9 @@
 #' women = pb52[pb52$sex == 'f' & pb52$type == 'w',]
 #' boys = pb52[pb52$sex == 'm' & pb52$type == 'c',]
 #' girls = pb52[pb52$sex == 'f' & pb52$type == 'c',]
-#' 
-#' ## fit 4 separate models which predict F1 frequency 
-#' ## on the basis of vowel category. 
-#' men = rcr (f1 ~ vowel, men$speaker, men)
-#' women = rcr (f1 ~ vowel, women$speaker, women)
-#' boys = rcr (f1 ~ vowel, boys$speaker, boys)
-#' girls = rcr (f1 ~ vowel, girls$speaker, girls)
-#' 
-#' ## A Hotelling T2 test indicates that there are 
-#' ## significant differences in F1 frequency 
-#' ## based on vowel category between males and females
-#' hotelling.test (men$coefficients, women$coefficients)
-#' 
-#' ## but no significant differences based on the same 
-#' ## criteria between boys and girls.
-#' hotelling.test (boys$coefficients, girls$coefficients)
-#' 
-hotelling.test <-
-function (matrix1, matrix2 = NULL){
+#'
+ 
+hotelling.test <- function (matrix1, matrix2 = NULL){
 
   if (is.null(ncol (matrix1))) return (cat ('Error: Univariate variable provided. Use a t-test.\n\n'))
   
