@@ -1,10 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
-
 
 #' Pitch Tracking
 #' 
@@ -15,6 +8,7 @@
 #' function. When plotting pitch tracks, the points sizes are proportional to
 #' autocorrelation values.
 #' 
+#' @export
 #' @param sound A numeric vector representing a waveform, or a 'sound' object
 #' created with the loadsound() or makesound() functions.
 #' @param f0range A numeric vector of length two where the first value
