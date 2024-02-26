@@ -1,10 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
-
 
 #' Linear Predictive Coding
 #' 
@@ -13,6 +6,7 @@
 #' LPC coefficients are estimated using the autocorrelation method. The signal
 #' is windowed with a Hanning window prior to analysis.
 #' 
+#' @export
 #' @param sound Either a numeric vector representing a sequence of samples
 #' taken from a sound wave or a sound object created with the loadsound() or
 #' makesound() functions.
