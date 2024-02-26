@@ -1,16 +1,10 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
-
 
 #' Reduce Fractions
 #' 
 #' Reduce fractions to lowest terms using Euclid's Algorithm.
 #' 
 #' 
+#' @export
 #' @param ratio A vector with two integers. The first element is the numerator
 #' of a ratio, and the second element is the denominator.
 #' @return A vector containing the elements of the reduced fraction. The first
