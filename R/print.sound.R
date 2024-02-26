@@ -1,8 +1,7 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
 
-print.sound <-
-function (x, ...){
+#' @export
+
+print.sound = function (x, ...){
   cat ("\n      Sound Object\n")
   cat ("\n   Read from file:        ", x$filename)
   cat ("\n   Sampling frequency:    ", x$fs, ' Hz')
