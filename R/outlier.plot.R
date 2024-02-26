@@ -1,5 +1,4 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
+
 
 outlier.plot = function (x, y, category, xsampa = TRUE, logaxes = TRUE, ellipsesd = 2, borders = c(2,3), select = 0, nearest = 1){
 
