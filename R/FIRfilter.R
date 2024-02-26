@@ -1,10 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
-
 
 #' Perform Digital Filtering
 #' 
@@ -18,6 +11,7 @@
 #' If verify is TRUE, a plot is created which allows the user to inspect the
 #' performance of the function.
 #' 
+#' @export
 #' @param sound A numeric vector representing a waveform, or a 'sound' object
 #' created with the loadsound() or makesound() functions.
 #' @param from The low cutoff point for the filter. Frequencies higher than
@@ -65,7 +59,7 @@ FIRfilter = function (sound, from = 0, to = fs/2, fs = 22050, order = 200,
   soundout = 0; tsout = 0;	
   if (order%%2) order = order +1
   if (inherits(sound, "ts")){
-    fs = frequency(sound)
+    fs = stats::frequency(sound)
     tsout = 1
   }
   if (inherits(sound,"sound")) {
