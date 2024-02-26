@@ -1,9 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
 
 #' Make a 'sound' object
 #' 
@@ -15,6 +9,7 @@
 #' working with 'sound' objects is that they carry their sampling frequency and
 #' filename (as well as some other information) with them.
 #' 
+#' @export
 #' @param sound A numeric vector representing a sound wave.
 #' @param filename A string indicating the desired file name associated with
 #' this object.
