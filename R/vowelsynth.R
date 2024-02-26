@@ -1,9 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
 
 #' Vowel Synthesis
 #' 
@@ -24,6 +18,7 @@
 #' the formant center frequencies by default. If only one value is provided,
 #' this is assumed to be the desired value for all formants.
 #' 
+#' @export
 #' @param ffs A vector of center frequencies for each formant. For moving
 #' formants, a list containing two vectors may be provided, where the first
 #' vector indicates intitial values, and the final vector indicates final
@@ -35,19 +30,19 @@
 #' be at least 50 ms long.
 #' @param f0 The desired f0 (pitch) of the sound. Optionally, a vector with
 #' initial and final f0 values may be provided.
+#' @param f0precision An integer specifying the precision which which f0 differences can be expressed. 
 #' @param fs The desired sampling frequency of the output sound.
 #' @param verify If TRUE, the waveform and spectrogram of the created sound are
 #' plotted to allow the user to visually verify the process.
 #' @param returnsound If TRUE, the sound is returned as a sound object, which
 #' can be used with several other functions included in this package. If FALSE,
 #' only a vector representing the sound wave is returned.
-#' @param noise1 Noise to be added to the source, before formant filtering, as
+#' @param noisesd Standard deviation of noise to be added to the source, as
 #' a proportion of the source RMS amplitude.
-#' @param noise2 Noise to be added to the output, as a proportion of the signal
-#' RMS amplitude.
+#' @param noiseshape If TRUE noise varies with glottis openin
 #' @param power A desired power contour can be specified. Must be of the same
 #' length as the output sound, or the sound is truncated to the length of this
-#' vector.
+#' vector. 
 #' @return A vector or 'sound' object representing the filtered sound.
 #' @author Santiago Barreda <sbarreda@@ucdavis.edu>
 #' @references Klatt, D. H. (1980). Software for a cascade/parallel formant
@@ -57,85 +52,102 @@
 #' Unpublished Manuscript. Massachusetts Institute of Technology, Cambridge,
 #' MA. Chapter 3.
 #' @examples
-#' 
-#' 
-#' ## uncomment to run
+#' \dontrun{
 #' 
 #' ## The following examples are based on my vowels 
 #' i = vowelsynth (returnsound = FALSE, f0 = c(125,105))
-#' #a = vowelsynth (ffs = c(700, 1300, 2300, 3400, 4400), 
-#' #returnsound = FALSE, f0 = c(125,105))
-#' #e = vowelsynth (ffs = c(400, 2000, 2600, 3400, 4400), 
-#' #returnsound = FALSE, f0 = c(125,105))
-#' #o = vowelsynth (ffs = c(400, 900, 2300, 3400, 4400), 
-#' #returnsound = FALSE, f0 = c(125,105))
-#' #u = vowelsynth (ffs = c(300, 750, 2300, 3400, 4400), 
-#' #returnsound = FALSE, f0 = c(125,105))
+#' a = vowelsynth (ffs = c(700, 1300, 2300, 3400, 4400), 
+#' returnsound = FALSE, f0 = c(125,105))
+#' e = vowelsynth (ffs = c(400, 2000, 2600, 3400, 4400), 
+#' returnsound = FALSE, f0 = c(125,105))
+#' o = vowelsynth (ffs = c(400, 900, 2300, 3400, 4400), 
+#' returnsound = FALSE, f0 = c(125,105))
+#' u = vowelsynth (ffs = c(300, 750, 2300, 3400, 4400), 
+#' returnsound = FALSE, f0 = c(125,105))
 #' 
-#' #silence = rep(0, 1000)
-#' #vowels = c(a, silence, e, silence, i, silence, o, silence, u)
+#' silence = rep(0, 1000)
+#' vowels = c(a, silence, e, silence, i, silence, o, silence, u)
 #' 
-#' #writesound (vowels, filename = 'vowels.wav', fs = 10000)
+#' writesound (vowels, filename = 'vowels.wav', fs = 10000)
 #' 
-#' ## an example of a synthetic diphthong
-#' #ei = vowelsynth (ffs = list(c(400, 2000, 2600, 3400, 4400), 
-#' #c(270, 2200, 2800, 3400, 4400)), f0 = c(125,105))
-#' #writesound (ei)
-#' #spectrogram (ei, pause = FALSE)
+#' # an example of a synthetic diphthong
+#' ei = vowelsynth (ffs = list(c(400, 2000, 2600, 3400, 4400), 
+#' c(270, 2200, 2800, 3400, 4400)), f0 = c(125,105))
+#' writesound (ei)
+#' spectrogram (ei, pause = FALSE)
+#' }
 #' 
-#' 
-vowelsynth = function (ffs = c(270, 2200, 2800, 3400, 4400), fbw = 0.06, dur = 300, f0 = c(120,100), 
-                       fs = 10000, verify = FALSE, returnsound = TRUE, noise1 = .001, noise2 = .01, power = NULL){
-  if (dur < 50) stop ('Duration must be at least 50 ms.')
+
+vowelsynth = function (ffs = c(270, 2200, 2800, 3400, 4400), fbw = 0.06, 
+                       dur = 300, f0precision = 10, f0 = c(120, 100), fs = 10000, 
+                       verify = FALSE, returnsound = TRUE, noisesd = 0.5, 
+                       power = NULL, noiseshape = FALSE,preemph=TRUE){
+  
+  if (dur < 30) stop ('Duration must be at least 30 ms.')
   if (length (f0) > 2) stop ('Only initial and final f0 may be specified.')
+  
   
   T = 1/fs
   n = round(dur/1000/T)
-  if (!is.null(power)) n = length(power)
-  if (is.numeric (nrow(ffs))) n = nrow(ffs)
-
-  if (length(f0) == 1) f0 = c(f0,f0)
-  f0 = exp(seq (log(f0[1]), log(f0[2]), length.out = n))
- 
+  if (!is.null(power)) 
+    n = length(power)
+  if (is.numeric(nrow(ffs))) 
+    n = nrow(ffs)
+  if (length(f0) == 1) 
+    f0 = c(f0, f0)
+  f0 = exp(seq(log(f0[1]), log(f0[2]), length.out = n))
   vsource = NULL
   spot = 1
-  while (length (vsource) < n*5){
+  while (length(vsource) < n * f0precision) { ## 5
     tmp = f0[spot]
-    cycle = round(fs/tmp)
-    tmp = 2*seq (0,1, 1/(cycle*4)) - 3*seq (0,1, 1/(cycle*4))^2 
-    tmp = c(rep (0, cycle), tmp)
+    cycle = fs/tmp
+    tmp = 2 * seq(0, 1, 1/(round(cycle*(f0precision-1)))) - 3 * seq(0, 1, 1/(round(cycle *(f0precision-1))))^2  # 4 ->9
+    tmp = c(rep(0, cycle), tmp)
     vsource = c(vsource, tmp)
     spot = spot + cycle
   }
-  vsource = resample (vsource, fs, fs*5, synthfilter = TRUE)
-  vsource = vsource + rnorm (length(vsource), sd = sd(vsource)*noise1)
-  vsource = vsource[1:n] 
+  vsource = phonTools::resample(vsource, fs, fs * f0precision, synthfilter = TRUE)  # 5
   
+  noise = rnorm(length(vsource), 1)
+  cycle = fs/mean (f0)/4
+  noiseamp = filter(vsource, rep(1 / cycle, cycle), sides = 2)
+  noiseamp = noiseamp - min(noiseamp, na.rm=TRUE)
+  noiseamp = noiseamp / max(noiseamp, na.rm=TRUE)
+  noiseamp[is.na (noiseamp)] = 0
+  if (noiseshape) noise = noise * ((1-noiseamp))
+  noise = (noise/sd(noise)) *(sd(vsource)*noisesd)
+  
+  vsource = vsource + noise
+  
+  par (mfrow = c(1,2), mar = c(4,4,1,1))
+  plot (vsource, type="l")
+  lines (noise, col=2)
+  plot (vsource, type="l")
+  
+  vsource = vsource[1:n]
   vsource = jitter(vsource)
-  vsource = preemphasis (vsource, coeff = .94)
-
-  x = c(1, 10 / (1000/fs), 20 / (1000/fs), n-(30 / (1000/fs)), n)
-  if (is.null(power))   power = interpolate (x, y = c(30,55, 60,55,30), increment = 1, type = 'linear')[1:n,2]
-  power = 10^(power/20)
   
+  if (preemph) vsource = phonTools::preemphasis(vsource, coeff = 0.94)
+  
+  x = c(1, 20/(1000/fs),40/(1000/fs), 50/(1000/fs), n - (30/(1000/fs)), 
+        n)
+  if (is.null(power)) 
+    power = phonTools::interpolate(x, y = c(10,30, 55, 60, 55, 30), increment = 1, 
+                                   type = "linear")[1:n, 2]
+  power = 10^(power/20)
   power = jitter(power, factor = 0.01)
   vsource = vsource * power
-  output = Ffilter (vsource, ffs = ffs, fs = fs, verify = FALSE, bwp = fbw)
-  
+  output = phonTools::Ffilter(vsource, ffs = ffs, fs = fs, verify = FALSE, 
+                              bwp = fbw)
   output = output * power
-  output = output + rnorm (length(output), sd = sd(output)*noise2)
-  output = output /(max(abs(output)) * 1.05)
-  
-  if (verify == TRUE) {
-    par (mfrow = c(2,1), mar = c(4,4,1,1))
-    plot ((1:n)*T*1000,output, ylab = 'Amplitude', xlab = 'Time (ms)', type = 'l', xaxs = 'i')
-    abline (h = 0, lty = 'dotted') 
-    spectrogram (output, fs = fs, dynamicrange = 60)
-  }
+  #output = output + rnorm(length(output), sd = sd(output) * 
+  #                          noise2)
+  output = output/(max(abs(output)) * 1.05)
   if (returnsound == TRUE) 
-    output = makesound(output, "sound.wav", fs = fs)
+    output = phonTools::makesound(output, "sound.wav", fs = fs)
   return(output)
 }
+
 
 
 
