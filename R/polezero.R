@@ -1,10 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
-
 
 #' Pole-zero Plots
 #' 
@@ -13,6 +6,7 @@
 #' This function plots filter poles (x) and zeros (o) based on the given
 #' coefficients.
 #' 
+#' @export
 #' @param b The filter moving-average (MA) coefficients.
 #' @param a The filter autoregressive (AR) coefficients.
 #' @param ... Additional parameters are passed to the internal call of plot().
