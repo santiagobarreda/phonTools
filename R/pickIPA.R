@@ -1,10 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
-
 
 #' Pick IPA Symbols
 #' 
@@ -26,6 +19,7 @@
 #' **There may be issues when exporting figures to PDF using IPA font.
 #' Exporting plots directly as images works 'out of the box'**
 #' 
+#' @export
 #' @aliases pickIPA ipainfo
 #' @param vowels An optional vector of vowel labels that you would like to plot
 #' using IPA symbols.
