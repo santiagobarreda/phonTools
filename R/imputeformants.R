@@ -1,10 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
-
 
 #' Impute Missing Formant Values
 #' 
@@ -17,6 +10,7 @@
 #' Nearey & Assmann 2007, Turner et al. 2009). This parameter would be most
 #' closely related to gross speaker vocal-tract length.
 #' 
+#' @export
 #' @param ffs A numeric vector containing formant frequency measurements for a
 #' single formant. Values should be in Hz, and missing values need to be set to
 #' 0.
