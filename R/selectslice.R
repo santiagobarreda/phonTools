@@ -1,9 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
 
 #' Select Slices
 #' 
@@ -18,6 +12,7 @@
 #' analysis parameters for the visually presented spectrogram and another set
 #' for the spectral slices.
 #' 
+#' @export
 #' @param specobject A 'spectrogram' object created with the spectrogram()
 #' function included in this package.
 #' @param n The number of desired slices.
