@@ -1,10 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
-
 
 #' Plot Vowels
 #' 
@@ -26,6 +19,7 @@
 #' There may be issues when exporting figures to PDF using IPA font. Exporting
 #' plots directly as images works 'out of the box'.
 #' 
+#' @export
 #' @aliases vplot IPA
 #' @param x A numeric vector indicating formant frequencies to be plotted on
 #' the x axis.
