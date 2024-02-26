@@ -1,6 +1,5 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
 
+#' @export
 
 plot.sound = function (x, ...){
   if (!exists("xlab")) xlab = 'Time (s)'
