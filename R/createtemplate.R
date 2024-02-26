@@ -1,9 +1,3 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
-
-
-
-
 
 #' Create an LDA Template
 #' 
@@ -26,6 +20,7 @@
 #' function may also be useful for the ldclassify() function provided in this
 #' package.
 #' 
+#' @export
 #' @aliases createtemplate print.template plot.template territorialmap
 #' @param features A matrix of features in which each row represents a single
 #' token and each column represents a different 'feature' used to classify the
