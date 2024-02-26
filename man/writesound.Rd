@@ -4,7 +4,7 @@
 \alias{writesound}
 \title{Write out a WAV file}
 \usage{
-writesound(samples, filename = "", fs = 22050)
+writesound(samples, filename = "", fs = 22050, bit = 16)
 }
 \arguments{
 \item{samples}{A numeric vector representing a sound wave.}
@@ -13,6 +13,8 @@ writesound(samples, filename = "", fs = 22050)
 
 \item{fs}{The desired output sampling frequency. If a sound object is passed
 this does not need to be specified.}
+
+\item{bit}{The desired bit rate.}
 }
 \description{
 Create a WAV file from a numeric vector or 'sound' object.
@@ -25,7 +27,7 @@ filename defaults to 'samples.wav' where 'samples' indicates the name of the
 samples variable that was passed to the function.
 }
 \examples{
-
+\dontrun{
 ## generate a sine wave with a frequency of 1000 Hz
 ## sampled at a frequency of 10000 Hz
 x = seq (0,.1, 1/10000)
@@ -37,6 +39,7 @@ writesound (snd, filename = '1khz.wav', fs = 10000)
 
 ## if no filename is provided, this sound will be called 'snd.wav'
 writesound (snd, fs = 10000)
+}
 
 }
 \references{
