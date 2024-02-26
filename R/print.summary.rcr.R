@@ -1,6 +1,5 @@
-# Copyright (c) 2015 Santiago Barreda
-# All rights reserved.
 
+#' @export
 
 print.summary.rcr <-
 function (x, ...){
