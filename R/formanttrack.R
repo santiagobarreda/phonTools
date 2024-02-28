@@ -49,9 +49,10 @@
 #' #formanttrack (sound, periodicity = 0)
 #' 
 #' 
-formanttrack = function (sound, timestep = 5, windowlength = 30, 
-formants = 5, cutoff = 5000, minformant = 200, maxbw = 600, 
-fs = 22050, show = TRUE, periodicity = .5, returnbw = FALSE){
+formanttrack = 
+  function (sound, timestep = 5, windowlength = 30, formants = 5, cutoff = 5000, 
+            minformant = 200, maxbw = 600, fs = 22050, show = TRUE, 
+            periodicity = .5, returnbw = FALSE){
 
   if (inherits(sound,"ts")) fs = frequency(sound)
   if (inherits(sound,"sound")) {
@@ -64,7 +65,7 @@ fs = 22050, show = TRUE, periodicity = .5, returnbw = FALSE){
   if (cutoff > fs/2) stop ('Cutoff frequency must be less than or equal to the Nyquist frequency.')
 
   if (cutoff != fs/2){
-    sound = resample (sound, cutoff*2, fs, synthfilter = TRUE)
+    sound = resample (sound, cutoff*2, fs)
     fs = cutoff*2
   }
   T = 1 / fs
@@ -77,8 +78,8 @@ fs = 22050, show = TRUE, periodicity = .5, returnbw = FALSE){
   total = 1
   for (i in 1:(length(spots)-1)){
     section = sound[(spots[i]-half):(spots[i]+half)]
-    tmpacf = pitchtrack (section, timestep=0, fs=fs)[2] 
-    if (tmpacf>=periodicity){
+    #tmpacf = pitchtrack (section, timestep=0, fs=fs)[2] 
+    #if (tmpacf>=periodicity){
       tmp = findformants (section, fs = cutoff*2, maxbw = maxbw, minformant = minformant, 
       verify = F, coeffs = formants*2+3)[1:formants,]
       tmp[is.na(tmp[,1]),] = 0
@@ -86,7 +87,7 @@ fs = 22050, show = TRUE, periodicity = .5, returnbw = FALSE){
       bws = rbind (bws, tmp[,2])
       ffs[total,1] = spots[i] * (1000/fs)
       total = total + 1
-    }
+    #}
   }
   colnames(ffs) = c('time',paste ('f', 1:formants, sep=''))
   rownames(ffs) = 1:nrow(ffs)
