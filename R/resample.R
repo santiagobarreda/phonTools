@@ -39,17 +39,26 @@
 
  
 resample = function (sound, newfs, oldfs, precision = 50, filterorder = 6, n_passes = 4){
-  soundout = 0; tsout = 0;
+  
+  soundout = 0; 
+  
   if (inherits(sound,"ts")){
     fs = frequency(sound)
     tsout = 1
   } 
+  
+  if (inherits(sound,"Wave")) 
+    sound = phonTools::makesound (sound@left, 
+                                  filename = "UntitledWaveObject.wav", 
+                                  fs = sound@samp.rate) 
+  
   if (inherits(sound,"sound")) {
     soundout = 1
     oldsound = sound
     oldfs = sound$fs
     sound = sound$sound
   } 
+
   ratio = newfs / oldfs
   if (ratio < 1) 
     sound = lowpass (sound, cutoff = ratio, order=filterorder, n_passes = n_passes)
@@ -68,8 +77,8 @@ resample = function (sound, newfs, oldfs, precision = 50, filterorder = 6, n_pas
     y = lowpass (y, cutoff = oldfs/newfs, order= filterorder, n_passes = n_passes)
   
   sound = y / (max(y) * 1.05) 
+  sound = ts (sound, frequency = newfs, start = 0)
   if (soundout == 1)  sound = makesound (sound, filename = oldsound$filename, fs = newfs)
-  if (tsout == 1)  sound = ts (sound, frequency = newfs, start = 0)
   return (sound)   
 }
 
