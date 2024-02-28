@@ -10,12 +10,12 @@ spectrogram(
   sound,
   fs = 22050,
   windowlength = 5,
-  timestep = -1000,
-  padding = 10,
+  timestep = -500,
+  padding = 2,
   preemphasisf = 50,
   maxfreq = 5000,
   colors = TRUE,
-  dynamicrange = 50,
+  dynamicrange = 70,
   nlevels = dynamicrange,
   maintitle = "",
   show = TRUE,
@@ -103,15 +103,13 @@ The function optionally returns a spectrogram object for which the plot()
 function is defined.
 }
 \examples{
-
-## uncoment and run. 
+\dontrun{
 data (sound)             ## use the example 'sound' object provided
-#sound = loadsound()       ## or run this line to use you own sound
+# sound = loadsound()       ## or run this line to use you own sound
 
 spectrogram (sound)
 # spectrogram (sound, quality = TRUE)
-
-
+}
 }
 \author{
 Santiago Barreda <sbarreda@ucdavis.edu>
