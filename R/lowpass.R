@@ -20,7 +20,6 @@
 #' }
 
 lowpass = function (sound, cutoff = 0.5, order = 6, n_passes = 4){
-
   
   b = signal::butter(order, cutoff, type="low")
   
