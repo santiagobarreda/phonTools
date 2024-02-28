@@ -107,7 +107,7 @@ vowelsynth = function (ffs = c(270, 2200, 2800, 3400, 4400), fbw = 0.06,
     vsource = c(vsource, tmp)
     spot = spot + cycle
   }
-  vsource = phonTools::resample(vsource, fs, fs * f0precision, synthfilter = TRUE)  # 5
+  vsource = phonTools::resample(vsource, fs, fs * f0precision, n_passes = 6)  # 5
   
   noise = rnorm(length(vsource), 1)
   cycle = fs/mean (f0)/4
