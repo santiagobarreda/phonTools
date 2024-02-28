@@ -63,21 +63,22 @@
 #' spectrogram().} \item{maxfreq}{the maximum desired frequency when plotting.}
 #' @author Santiago Barreda <sbarreda@@ucdavis.edu>
 #' @examples
-#' 
-#' ## uncoment and run. 
+#' \dontrun{
 #' data (sound)             ## use the example 'sound' object provided
-#' #sound = loadsound()       ## or run this line to use you own sound
+#' # sound = loadsound()       ## or run this line to use you own sound
 #' 
 #' spectrogram (sound)
 #' # spectrogram (sound, quality = TRUE)
-#' 
-#' 
-spectrogram = function (sound, fs = 22050, windowlength = 5, timestep = -1000,
-padding = 10, preemphasisf = 50, maxfreq = 5000, colors = TRUE, 
-dynamicrange = 50, nlevels = dynamicrange, maintitle = "", show = TRUE, 
-window = 'kaiser', windowparameter = 3, quality = FALSE){
+#' }
 
-  if (inherits(sound,"ts")) fs = frequency(sound)
+
+spectrogram = function (
+    sound, fs = NA, windowlength = 5, timestep = -500, padding = 2, 
+    preemphasisf = 50, maxfreq = 5000, colors = TRUE, dynamicrange = 70, 
+    nlevels = dynamicrange, maintitle = "", show = TRUE, window = 'kaiser', 
+    windowparameter = 3, quality = FALSE){
+
+  if (inherits(sound,"ts") & is.na(fs)) fs = frequency(sound)
   if (inherits(sound,"sound")){
     fs = sound$fs
     sound = sound$sound
