@@ -43,8 +43,10 @@
 #' #findformants (sound, showrejected = FALSE)
 #' #findformants (sound, showbws = TRUE)
 #' 
-findformants = function (sound, fs = 10000, coeffs = NULL, maxbw = 600, 
-minformant = 200, verify = TRUE, showbws = FALSE, showrejected = TRUE){
+findformants = function (
+    sound, fs = 10000, coeffs = NULL, maxbw = 600, minformant = 200, 
+    verify = TRUE, showbws = FALSE, showrejected = TRUE){
+  
   if (missing (sound)) sound = 1
 
   if (inherits(sound,"ts")) fs = frequency(sound)
