@@ -32,20 +32,21 @@
 #' @references Snell, R.(1993). "Formant location from LPC analysis data", IEEE
 #' Transactions on Speech and Audio Processing, 1(2), pp. 129-134.
 #' @examples
-#' 
-#' ## make a synthetic vowel with a known set of formant frequencies
-#' ## and bandwidths
+#' \dontruin{
+#' # make a synthetic vowel with a known set of 
+#' # formant frequencies and bandwidths
 #' sound = vowelsynth (ffs = c(500,1500,2500,3500,4500),
 #'                     fbw = c(30, 90, 150, 210, 270), f0 = 100)
 #' 
-#' ## compare different plotting options					
+#' # compare different plotting options					
 #' findformants (sound)
-#' #findformants (sound, showrejected = FALSE)
-#' #findformants (sound, showbws = TRUE)
-#' 
-findformants = function (
-    sound, fs = 10000, coeffs = NULL, maxbw = 600, minformant = 200, 
-    verify = TRUE, showbws = FALSE, showrejected = TRUE){
+#' findformants (sound, showrejected = FALSE)
+#' findformants (sound, showbws = TRUE)
+#' }
+
+findformants = function (sound, fs = 10000, coeffs = NULL, maxbw = 600, 
+                         minformant = 200, verify = TRUE, showbws = FALSE, 
+                         showrejected = TRUE){
   
   if (missing (sound)) sound = 1
 
