@@ -1,7 +1,7 @@
 Package: phonTools
 Title: Tools for Phonetic and Acoustic Analyses
-Version: 0.2-3.0
-Date: 2024-01-06
+Version: 0.2-2.2
+Date: 2023-11-20
 Authors@R: 
   c(person(given = "Santiago",
            family = "Barreda",
