@@ -19,7 +19,7 @@ Formant frequency information for vowels averaged across 4 male speakers.
 \examples{
 
 data(b95)
-vowelplot (b95$f1, b95$f2, b95$vowel, logaxes = 'xy', xsampa = TRUE)
+vplot (b95$f1, b95$f2, b95$vowel, logaxes = TRUE, xsampa = FALSE)
 
 }
 \references{

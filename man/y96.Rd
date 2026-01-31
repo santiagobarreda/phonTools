@@ -21,7 +21,7 @@ speakers.
 \examples{
 
 data(y96)
-vowelplot (y96$f1, y96$f2, y96$vowel, logaxes = 'xy', xsampa = TRUE)
+vplot (y96$f1, y96$f2, y96$vowel, logaxes = TRUE, xsampa = FALSE)
 
 }
 \references{

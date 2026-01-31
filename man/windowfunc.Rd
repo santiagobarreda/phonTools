@@ -12,7 +12,7 @@ the window will have the same length as the vector.}
 
 \item{type}{A string indicating the type of window desired. For the sake of
 simplicity, all window names are in lowercase. Supported types are:
-rectangular, hann, hamming, cosine, bartlett, gausian, and kaiser.}
+rectangular, hann, hamming, cosine, bartlett, gaussian, and kaiser.}
 
 \item{parameter}{The parameter necessary to generate the window, if
 appropriate. At the moment, the only windows that require parameters are the

@@ -2,13 +2,11 @@
 % Please edit documentation in R/spectrogram.R
 \name{spectrogram}
 \alias{spectrogram}
-\alias{plot.spectrogram}
-\alias{print.spectrogram}
 \title{Create Spectrograms}
 \usage{
 spectrogram(
   sound,
-  fs = 22050,
+  fs = NA,
   windowlength = 5,
   timestep = -500,
   padding = 2,

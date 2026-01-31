@@ -55,7 +55,7 @@ Accepted formants are presented in 5 colors (which are reused if there are
 more than 5 formants), while rejected formants are presented in black.
 }
 \examples{
-\dontruin{
+\dontrun{
 # make a synthetic vowel with a known set of 
 # formant frequencies and bandwidths
 sound = vowelsynth (ffs = c(500,1500,2500,3500,4500),

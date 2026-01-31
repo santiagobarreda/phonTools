@@ -29,14 +29,13 @@ Formant frequency, f0 and duration information for vowels collected from 139
 speakers in the Hillenbrand et al. (1995) data. Speaker numbers have been
 modified to be uniquely identifying numbers. Data has been simplified so
 that only "steady state" formant frequency measures are given. Missing F2
-values (n = 10) and F3 values (n = 41) have been imputed using the
-imputeformants() function included in this package.
+values (n = 10) and F3 values (n = 41) have been imputed.
 }
 \examples{
 
 data(h95)
-vowelplot (h95$f1, h95$f2, h95$vowel, logaxes = 'xy', ellipses = TRUE,
-xsampa = TRUE)
+vplot (h95$f1, h95$f2, h95$vowel, logaxes = TRUE, ellipses = TRUE,
+xsampa = FALSE)
 
 }
 \references{

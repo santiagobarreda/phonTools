@@ -31,8 +31,8 @@ in the Peterson & Barney (1952) data.
 \examples{
 
 data(pb52)
-vowelplot (pb52$f1, pb52$f2, pb52$vowel, logaxes = 'xy', ellipses = TRUE, 
-xsampa = TRUE)
+vplot (pb52$f1, pb52$f2, pb52$vowel, logaxes = TRUE, ellipses = TRUE, 
+xsampa = FALSE)
 
 }
 \references{

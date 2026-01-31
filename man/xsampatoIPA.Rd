@@ -38,7 +38,7 @@ Exporting plots directly as images works 'out of the box'**
 \examples{
 
 
-## compare x-sampa and IPA vpwel charts
+## compare x-sampa and IPA vowel charts
 #xsampatoIPA ()
 ## some examples
 #IPA = xsampatoIPA (c('I','3','e','Q'))

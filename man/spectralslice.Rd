@@ -53,7 +53,7 @@ above the specified frequency.}
 
 \item{removeDC}{If TRUE, the DC component is removed.}
 
-\item{\dots}{any additional arguments will be passed to the internal calls
+\item{...}{any additional arguments will be passed to the internal calls
 of 'plot' or 'lines'.}
 }
 \value{
@@ -78,7 +78,6 @@ spectralslice (vowel[500:1000], fs = 10000)
      
 ## line spectrum
 spectralslice (vowel[500:600], padding = 0, line = TRUE, fs = 10000)
-
 
 }
 \author{

@@ -2,8 +2,6 @@
 % Please edit documentation in R/loadsound.R
 \name{loadsound}
 \alias{loadsound}
-\alias{print.sound}
-\alias{plot.sound}
 \title{Load WAV files into R}
 \usage{
 loadsound(filename = NA, channel = "left")

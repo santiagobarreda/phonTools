@@ -9,11 +9,11 @@ lowpass(sound, cutoff = 0.5, order = 6, n_passes = 4)
 \arguments{
 \item{sound}{A numeric vector containing the signal to be filtered.}
 
+\item{cutoff}{The cutoff frequency of the filter where cutoff = cutoff/Nyquist frequency (Nyquist=fs/2).}
+
 \item{order}{The order of the filter to be used.}
 
 \item{n_passes}{The number of times the filter is applied to the signal.}
-
-\item{r}{The cutoff frequency of the filter where r = cutoff/Nyquist frequency (Nyquist=fs/2).}
 }
 \value{
 A numeric vector containing the filtered signal.

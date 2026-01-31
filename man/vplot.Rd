@@ -82,6 +82,7 @@ There may be issues when exporting figures to PDF using IPA font. Exporting
 plots directly as images works 'out of the box'.
 }
 \examples{
+\dontrun{
 
 ## A few examples of some vowel plots. 
 
@@ -117,7 +118,7 @@ vplot (pb52$f1, pb52$f2, pb52$vowel, logaxes = TRUE,
 	   meansonly = FALSE, ellipsesd = 2, xsampa = TRUE, 
 	   alternateaxes = TRUE)
 
-
+}
 }
 \references{
 http://en.wikipedia.org/wiki/X-SAMPA

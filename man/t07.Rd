@@ -22,8 +22,8 @@ speakers from Edmonton English.
 \examples{
 
 data(t07)
-vowelplot (t07$f1, t07$f2, t07$vowel, logaxes = 'xy', meansOnly = TRUE, 
-xsampa = TRUE)
+vplot (t07$f1, t07$f2, t07$vowel, logaxes = TRUE, meansOnly = TRUE, 
+xsampa = FALSE)
 
 }
 \references{

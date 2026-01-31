@@ -2,7 +2,6 @@
 % Please edit documentation in R/pickIPA.R
 \name{pickIPA}
 \alias{pickIPA}
-\alias{ipainfo}
 \title{Pick IPA Symbols}
 \usage{
 pickIPA(vowels, n = 0, xsampa = FALSE, description = FALSE, verify = TRUE)
@@ -59,7 +58,7 @@ Exporting plots directly as images works 'out of the box'**
 ## in the Peterson and Barney data. 
 
 # data (pb52)
-# tmp = pickIPA (pb52$vowel, description = TRUE, xsampa = TRUE)
+# tmp = pickIPA (pb52$vowel, description = TRUE, xsampa = FALSE)
 # tmp
 
 }
