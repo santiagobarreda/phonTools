@@ -44,16 +44,21 @@ lpc = function (sound, order = round(fs/1000) + 3, fs = 10000, show = FALSE, add
   sound = sound - mean(sound)
   
   sound = sound * windowfunc (sound)
-  sound = c(sound, rep(0, order))              
   
-  predictors = t(sapply(seq(1, n, 1), function(x) sound[(x):(x + order)]))  
-  y = sound[1:n]           
-  r = y %*% predictors              
+  # Compute autocorrelation coefficients r[0] to r[order]
+  r = sapply(0:order, function(k) {
+    sum(sound[1:(n-k)] * sound[(1+k):n])
+  })
   
-  tmp = c(rev(r), r[-1])
-  w = t(sapply(seq(order+1, 2, -1), function(x) tmp[(x):(x+order-1)]))       
-
-  coeffs = -r[2:(order+1)] %*% solve(w)
+  # Build Toeplitz autocorrelation matrix from r[0] to r[order-1]
+  R_matrix = toeplitz(r[1:order])
+  
+  # Check for singular or ill-conditioned matrix
+  rcond_value = rcond(R_matrix)
+  if (rcond_value < 1e-10) warning("LPC autocorrelation matrix is ill-conditioned. Results may be unreliable.")
+  
+  # Solve Yule-Walker equations: R * a = -r[1:order]
+  coeffs = solve(R_matrix, -r[2:(order+1)])
   coeffs = c(1, coeffs)
   
   if (show == TRUE & add == TRUE) 
