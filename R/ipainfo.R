@@ -1,4 +1,26 @@
 
+#' IPA Information Database
+#'
+#' Retrieve information about IPA vowel symbols.
+#'
+#' This function returns a list containing comprehensive information about IPA
+#' (International Phonetic Alphabet) vowel symbols, including their Unicode
+#' representations, phonetic descriptions, and coordinates for visualization on
+#' a vowel chart.
+#'
+#' @return A list with the following components:
+#'
+#' \item{symbol}{IPA Unicode hexadecimal representations of 30 vowel symbols.}
+#' \item{description}{Phonetic descriptions (e.g., "close front unrounded").}
+#' \item{num}{Numeric identifiers (1-30) for each vowel.}
+#' \item{chooseplot}{Data frame with vowel chart coordinates: height, frontness,
+#' and rounded (boolean).}
+#' \item{sampa}{X-SAMPA representations of the IPA vowels.}
+#'
+#' @keywords internal
+#' @author Santiago Barreda <sbarreda@@ucdavis.edu>
+#' @references https://www.internationalphoneticassociation.org/
+#'
 ipainfo = function(wanted){
   out = list()
   out$symbol =  -as.hexmode(c('0069','0079','0268','0289','026F','0075',
