@@ -82,7 +82,7 @@ FIRfilter = function (sound, from = 0, to = fs/2, fs = 22050, order = 200,
   torads = (to / fs) * pi
   fromrads2 = (from / fs) * pi
   
-  fromh = (-1)^(n)*2*fromrads*sinc((2*fromrads)*(n-Mi))  ##min freq passed
+  fromh = (-1)^(n-Mi)*2*fromrads*sinc((2*fromrads)*(n-Mi))  ##min freq passed
   toh = 2*torads*sinc(2*torads*(n-Mi))  ##max freq passed
   fromh2 = 2*fromrads2*sinc(2*fromrads2*(n-Mi))  
   
