@@ -5,7 +5,7 @@
 #' 
 #' @export
 #' @param sound A numeric vector containing the signal to be filtered.
-#' @param r The cutoff frequency of the filter where r = cutoff/Nyquist frequency (Nyquist=fs/2).
+#' @param cutoff The cutoff frequency of the filter where cutoff = cutoff/Nyquist frequency (Nyquist=fs/2).
 #' @param order The order of the filter to be used.  
 #' @param n_passes The number of times the filter is applied to the signal. 
 #' @return A numeric vector containing the filtered signal.
