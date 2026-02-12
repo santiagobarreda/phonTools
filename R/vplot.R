@@ -53,6 +53,7 @@
 #' @author Santiago Barreda <sbarreda@@ucdavis.edu>
 #' @references http://en.wikipedia.org/wiki/X-SAMPA
 #' @examples
+#' \dontrun{
 #' 
 #' ## A few examples of some vowel plots. 
 #' 
@@ -88,101 +89,134 @@
 #' 	   meansonly = FALSE, ellipsesd = 2, xsampa = TRUE, 
 #' 	   alternateaxes = TRUE)
 #' 
-#' 
+#' }
 vplot = function (x, y, labels = NULL, colors = NULL, points = NULL, meansonly = FALSE, ellipsesd = 0, 
                   add = FALSE, alternateaxes = FALSE, xsampa = FALSE, logaxes = FALSE, ...){
-  if (min(table (labels)) < 2 & ellipsesd>0) 
+  if (min(table (labels)) < 2 & ellipsesd > 0) 
     stop ('At least 3 tokens per category are required to plot ellipses.')
-  if (logaxes & min(x,y) <= 0) stop ('Log axes are incompatible with negative plotting values.')
+  if (logaxes & min(x, y) <= 0) stop ('Log axes are incompatible with negative plotting values.')
   
+  # Extract plotting args and separate vplot-specific args
   cl = match.call()
-  matched = match(c('labels', 'meansonly', 'ellipsesd', 'add', 'colors', 
-                    'alternateaxes', 'xsampa','points','logaxes'),names(cl),0)
-  p = cl[-matched] ## for plot()
-  args = sapply (2:length(p), function(x) p[[x]])
-  names(args) = names(p)[-1]
+  vplot_args = c('labels', 'meansonly', 'ellipsesd', 'add', 'colors', 
+                 'alternateaxes', 'xsampa', 'points', 'logaxes')
+  matched = match(vplot_args, names(cl), 0)
+  plot_call = cl[-matched]
   
-  if (alternateaxes){tmp = x; x = y; y = tmp; 
-                     tmp = args$x; args$x = args$y; args$y = tmp}
-  allx = x; ally = y; alllabels = labels;
+  # Prepare data for plotting
+  allx = x; ally = y; alllabels = labels
   
-  if (meansonly) oranges = c(range(x), range(y))
-  if (meansonly & !is.null(labels)){ 
-    x = tapply (x, labels, mean); args$x = call('(', x);
-    y = tapply (y, labels, mean); args$y = call('(', y)
+  if (alternateaxes) {
+    tmp = x; x = y; y = tmp
+  }
+  
+  # Handle means-only mode
+  if (meansonly) {
+    if (is.null(labels)) stop('Mean vowel category plotting only possible if labels are given.')
+    x = tapply(x, labels, mean)
+    y = tapply(y, labels, mean)
     labels = names(y)
   }
-  if (meansonly & is.null(labels)) 
-    stop ('Mean vowel category plotting only possible if labels are given.')
   
-  if (logaxes & !add) args$log = call('quote', 'xy')
+  # Set up plot args
+  plot_args = list(x = x, y = y, type = 'n', ...)
   
-  #######
-  if (match("xlim", names(args), 0)>0) xlim = eval(args[[match("xlim", names(args), 0)]])
-  if (match("ylim", names(args), 0)>0) ylim = eval(args[[match("ylim", names(args), 0)]])
-  
-  if (match("xlim", names(args), 0)==0 & !logaxes)
-    xlim = range(allx)+c(-abs(diff(range(allx)))/20,abs(diff(range(allx)))/20)  
-  if (match("ylim", names(args), 0)==0 & !logaxes)
-    ylim = range(ally)+c(-abs(diff(range(ally)))/20,abs(diff(range(ally)))/20)
-  
-  if (match("xlim", names(args), 0)==0 & logaxes)
-    xlim = range(allx)*c(.9,1.1)  
-  if (match("ylim", names(args), 0)==0 & logaxes)
-    ylim = range(ally)*c(.9,1.1)
-  
-  if (match("xlim", names(args), 0)==0 & !logaxes & meansonly & ellipsesd == 0)
-    xlim = range(x)+c(-abs(diff(range(x)))/20,abs(diff(range(x)))/20)  
-  if (match("ylim", names(args), 0)==0 & !logaxes & meansonly & ellipsesd == 0)
-    ylim = range(y)+c(-abs(diff(range(y)))/20,abs(diff(range(y)))/20)
-  
-  if (match("xlim", names(args), 0)==0 & logaxes & meansonly & ellipsesd == 0)
-    xlim = range(x)*c(.9,1.1)  
-  if (match("ylim", names(args), 0)==0 & logaxes & meansonly & ellipsesd == 0)
-    ylim = range(y)*c(.9,1.1)  
-  
-  if (alternateaxes){ xlim=rev(xlim); ylim=rev(ylim);}
-  args$xlim = call('c', xlim[1],xlim[2]); args$ylim = call('c', ylim[1],ylim[2]);
-  
-  if (match("cex.axis", names(args),0)==0) args$cex.axis = call('(', 1.1)
-  if (match("cex.lab", names(args),0)==0) args$cex.lab = call('(', 1.1)
-  if (match("cex", names(args),0)==0 & meansonly) args$cex = call('(', 3)
-  if (match("cex", names(args),0)==0 & !meansonly) args$cex = call('(', 1.2)
-  
-  if (match("lwd", names(args), 0)==0) lwd = 2
-  if (match("lwd", names(args), 0)>0) lwd = args[[match("lwd", names(args), 0)]]
-  
-  if (match("xlab", names(args),0)==0 & !alternateaxes) args$xlab = call('quote', 'F1 (Hz)')
-  if (match("ylab", names(args),0)==0 & !alternateaxes) args$ylab = call('quote', 'F2 (Hz)')
-  if (match("xlab", names(args),0)==0 & alternateaxes) args$xlab = call('quote', 'F2 (Hz)')
-  if (match("ylab", names(args),0)==0 & alternateaxes) args$ylab = call('quote', 'F1 (Hz)')
-  #######
-  
-  vlevels = levels (as.factor (alllabels))
-  vnums = as.numeric (as.factor(alllabels))
-  
-  if (is.null(colors)) colors = rep(colors()[c(24,506,118,610,30,124,556,258,290,151,84,657,404)],10)
-  if (!meansonly) cols = colors[vnums]
-  if (!meansonly & length(colors)==length(x)) cols = colors
-  if (meansonly) cols = colors
-  args$col = call ('[', cols)
-  
-  if (!is.null(points)){
-    points = rep(points, 100)    
-    args$pch = call ('(', quote(points[vnums]))
+  # Calculate limits if not provided
+  if (!('xlim' %in% names(plot_args))) {
+    data_x = if (meansonly) x else allx
+    plot_args$xlim = .get_axis_limits(data_x, logaxes)
   }
-  if (xsampa) args$pch = call ('xsampatoIPA', quote(labels))
-  if (!add) do.call ('plot', args)
-  if (add) do.call ('points', args)
+  if (!('ylim' %in% names(plot_args))) {
+    data_y = if (meansonly) y else ally
+    plot_args$ylim = .get_axis_limits(data_y, logaxes)
+  }
   
-  if (ellipsesd > 0){
-    for (i in 1:length(vlevels)){  ##fix density so that you can specify number of points not spacing
-      if (!logaxes)sdellipse (cbind (allx[alllabels==vlevels[i]],ally[alllabels==vlevels[i]]), 
-                              stdev = ellipsesd, col = colors[i],lwd=lwd) 
-      
-      if (logaxes){ tmp = sdellipse (log(cbind (allx[alllabels==vlevels[i]],ally[alllabels==vlevels[i]])), 
-                                     stdev = ellipsesd, show = F); lines (exp(tmp), col = colors[i],lwd=lwd)}
+  # Reverse limits for alternate axes
+  if (alternateaxes) {
+    plot_args$xlim = rev(plot_args$xlim)
+    plot_args$ylim = rev(plot_args$ylim)
+  }
+  
+  # Set default labels if not provided
+  if (!('xlab' %in% names(plot_args))) {
+    plot_args$xlab = if (alternateaxes) 'F2 (Hz)' else 'F1 (Hz)'
+  }
+  if (!('ylab' %in% names(plot_args))) {
+    plot_args$ylab = if (alternateaxes) 'F1 (Hz)' else 'F2 (Hz)'
+  }
+  
+  # Set default cex if not provided
+  if (!('cex' %in% names(plot_args))) {
+    plot_args$cex = if (meansonly) 3 else 1.2
+  }
+  
+  # Set log scale if needed
+  if (logaxes & !add) plot_args$log = 'xy'
+  
+  # Create or add to plot
+  if (!add) do.call('plot', plot_args)
+  
+  # Set up colors and points
+  vlevels = levels(as.factor(alllabels))
+  vnums = as.numeric(as.factor(alllabels))
+  
+  if (is.null(colors)) colors = rep(colors()[.default_colors], 10)
+  
+  # Determine which colors to use
+  if (meansonly) {
+    cols = colors[1:length(vlevels)]
+  } else {
+    if (length(colors) == length(x)) {
+      cols = colors
+    } else {
+      cols = colors[vnums]
     }
-  }   
+  }
+  
+  # Plot points/text
+  if (is.null(points)) {
+    if (xsampa) {
+      points(x, y, pch = xsampatoIPA(labels), col = cols, ...)
+    } else {
+      text(x, y, label = labels, col = cols, ...)
+    }
+  } else {
+    pch_vals = rep(points, length.out = length(x))
+    if (meansonly) pch_vals = pch_vals[1:length(x)]
+    points(x, y, pch = pch_vals, col = cols, ...)
+  }
+  
+  # Draw ellipses if requested
+  if (ellipsesd > 0) {
+    lwd = plot_args$lwd %||% 2
+    .draw_ellipses(allx, ally, alllabels, vlevels, ellipsesd, colors, lwd, logaxes)
+  }
 }
+
+# Internal helper: Calculate axis limits with margin
+.get_axis_limits <- function(data, log_scale = FALSE) {
+  r = range(data)
+  if (log_scale) {
+    return(r * c(.9, 1.1))
+  } else {
+    margin = abs(diff(r)) / 20
+    return(r + c(-margin, margin))
+  }
+}
+
+# Helper: Draw ellipse(s) for categories
+.draw_ellipses <- function(x, y, labels, vlevels, ellipsesd, colors, lwd, logaxes) {
+  for (i in 1:length(vlevels)){
+    data = cbind(x[labels == vlevels[i]], y[labels == vlevels[i]])
+    if (!logaxes) {
+      sdellipse(data, stdev = ellipsesd, col = colors[i], lwd = lwd)
+    } else {
+      tmp = sdellipse(log(data), stdev = ellipsesd, show = FALSE)
+      lines(exp(tmp), col = colors[i], lwd = lwd)
+    }
+  }
+}
+
+# Default color palette for vowel plots
+.default_colors <- c(24,506,118,610,30,124,556,258,290,151,84,657,404)
 
