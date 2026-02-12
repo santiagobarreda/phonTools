@@ -1,5 +1,28 @@
 
 
+#' Interaction Plot
+#'
+#' Create an interaction plot with error bars.
+#'
+#' This function generates an interaction plot showing the relationship between
+#' two factors with optional error bars (standard error or standard deviation).
+#' It can accommodate grouping variables and allows customization of colors and
+#' labels.
+#'
+#' @export
+#' @param y A numeric vector of response values.
+#' @param x A factor or grouping variable for the x-axis.
+#' @param lines A factor indicating different lines to be plotted.
+#' @param group An optional grouping variable for additional stratification.
+#' @param ylab Label for the y-axis.
+#' @param xlabels Labels for the x-axis positions.
+#' @param bars Type of error bars: 'se' for standard error or 'sd' for
+#' standard deviation.
+#' @param add If TRUE, lines are added to an existing plot. If FALSE, a new
+#' plot is created.
+#' @param cols A vector of colors for the plotted lines.
+#' @author Santiago Barreda <sbarreda@@ucdavis.edu>
+#'
 iplot = function (y, x, lines, group = NULL, ylab ='', xlabels = c('',''), bars = 'se', add = FALSE, cols = c(1,1)){
 
   if (is.null(group)){
