@@ -68,10 +68,11 @@ resample = function (sound, newfs, oldfs, precision = 50, filterorder = 6, n_pas
   offset = newtime - nearest                                 
   
   sound = c(rep(0,precision), sound, rep(0,precision+1))
-  y = newtime * 0
   
-  for (i in -precision:precision)
-    y = y + sound[nearest+precision+i] * sinc(offset - i, normalized = TRUE)
+  # Vectorized sinc interpolation: compute all taps at once
+  indices = outer(nearest + precision, -precision:precision, "+")
+  offsets = outer(offset, -precision:precision, "-")
+  y = rowSums(sound[indices] * sinc(offsets, normalized = TRUE))
   
   if (ratio > 1) 
     y = lowpass (y, cutoff = oldfs/newfs, order= filterorder, n_passes = n_passes)
