@@ -11,7 +11,7 @@
 #' the window will have the same length as the vector.
 #' @param type A string indicating the type of window desired. For the sake of
 #' simplicity, all window names are in lowercase. Supported types are:
-#' rectangular, hann, hamming, cosine, bartlett, gausian, and kaiser.
+#' rectangular, hann, hamming, cosine, bartlett, gaussian, and kaiser.
 #' @param parameter The parameter necessary to generate the window, if
 #' appropriate. At the moment, the only windows that require parameters are the
 #' Kaiser and Gaussian windows. By default, these are set to 2 for kaiser and
@@ -31,15 +31,17 @@ windowfunc = function (npoints, type = 'hann', parameter = -1){
 
   if (!is.numeric (npoints)) stop ('Invalid number of points specified.')
   npoints = round (npoints)
+  if (npoints < 2) stop ('Window length must be at least 2 points.')
+  
   N = npoints
   n = 0:(N-1)
   output = NULL
   
   if (type == 'rectangular') output = rep (1, N)
   if (type == 'blackman') output = (7938/18608) - (9240/18608)*cos((2*pi*n)/(N-1)) + (1430/18608)*cos((4*pi*n)/(N-1))
-  if (type == 'hann' | type == 'hanning') output = 0.5 * (1 - cos ((2*pi*n)/(N-1)))
+  if (type == 'hann' || type == 'hanning') output = 0.5 * (1 - cos ((2*pi*n)/(N-1)))
   if (type == 'hamming') output = 0.54 - 0.46 * cos ((2*pi*n)/(N-1))
-  if (type == 'cosine' | type == 'sine') output = sin ((n*pi) / (N-1))
+  if (type == 'cosine' || type == 'sine') output = sin ((n*pi) / (N-1))
   if (type == 'bartlett') output = (2 / (N-1)) * ((N-1)/2 - abs(n - (N-1)/2))
   if (type == 'gaussian'){
     if (parameter == -1) parameter = 0.4
@@ -49,7 +51,6 @@ windowfunc = function (npoints, type = 'hann', parameter = -1){
     if (parameter == -1) parameter = 2
     output = besselI (parameter*pi * sqrt (1 - (2*(n)/(N-1) -1)^2), 0) / besselI(parameter*pi, 0)
   }
-  if (type =='') stop ('No window type provided.')
   if (is.null(output)) stop ('Invalid window type provided.')
   return (output)
 }
