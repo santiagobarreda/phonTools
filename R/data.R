@@ -1,5 +1,21 @@
 
 
+#' phonTools: Phonetic and Acoustic Analysis Tools
+#' 
+#' A comprehensive R package for phonetic and acoustic analysis with functions
+#' for signal processing, formant extraction, vowel analysis, and visualization.
+#' 
+#' @keywords internal
+"_PACKAGE"
+
+#' @importFrom grDevices colorRampPalette dev.cur
+#' @importFrom graphics .filled.contour Axis abline arrows axis box identify image layout lines locator par plot.new plot.window points segments text title
+#' @importFrom stats aggregate cov fft filter frequency lm mahalanobis prcomp rnorm sd toeplitz ts var
+#' @importFrom utils flush.console head read.table tail
+#' @importFrom signal butter filtfilt
+#' @importFrom tuneR readWave Wave writeWave
+NULL
+
 #' Aronson et al. (1996) Hebrew Vowel Data
 #' 
 #' Formant frequency information for vowels averaged across 6 male speakers.
@@ -21,7 +37,7 @@
 #' @examples
 #' 
 #' data(a96)
-#' vowelplot (a96$f1, a96$f2, a96$vowel, logaxes = 'xy', xsampa = TRUE)
+#' vplot (a96$f1, a96$f2, a96$vowel, logaxes = TRUE, xsampa = FALSE)
 #' 
 NULL
 
@@ -47,7 +63,7 @@ NULL
 #' @examples
 #' 
 #' data(b95)
-#' vowelplot (b95$f1, b95$f2, b95$vowel, logaxes = 'xy', xsampa = TRUE)
+#' vplot (b95$f1, b95$f2, b95$vowel, logaxes = TRUE, xsampa = FALSE)
 #' 
 NULL
 
@@ -74,7 +90,7 @@ NULL
 #' @examples
 #' 
 #' data(f73)
-#' vowelplot (f73$f1, f73$f2, f73$vowel, logaxes = 'xy', xsampa = TRUE)
+#' vplot (f73$f1, f73$f2, f73$vowel, logaxes = TRUE, xsampa = FALSE)
 #' 
 NULL
 
@@ -101,7 +117,7 @@ NULL
 #' @examples
 #' 
 #' data(f99)
-#' vowelplot (f99$f1, f99$f2, f99$vowel, logaxes = 'xy', xsampa = TRUE)
+#' vplot (f99$f1, f99$f2, f99$vowel, logaxes = TRUE, xsampa = FALSE)
 #' 
 NULL
 
@@ -113,8 +129,7 @@ NULL
 #' speakers in the Hillenbrand et al. (1995) data. Speaker numbers have been
 #' modified to be uniquely identifying numbers. Data has been simplified so
 #' that only "steady state" formant frequency measures are given. Missing F2
-#' values (n = 10) and F3 values (n = 41) have been imputed using the
-#' imputeformants() function included in this package.
+#' values (n = 10) and F3 values (n = 41) have been imputed.
 #' 
 #' 
 #' @name h95
@@ -141,8 +156,8 @@ NULL
 #' @examples
 #' 
 #' data(h95)
-#' vowelplot (h95$f1, h95$f2, h95$vowel, logaxes = 'xy', ellipses = TRUE,
-#' xsampa = TRUE)
+#' vplot (h95$f1, h95$f2, h95$vowel, logaxes = TRUE, ellipses = TRUE,
+#' xsampa = FALSE)
 #' 
 NULL
 
@@ -170,8 +185,7 @@ NULL
 #' @examples
 #' 
 #' data(p73)
-#' vowelplot (p73$f1, p73$f2, p73$vowel, logaxes = 'xy', ellipses = TRUE, 
-#' xsampa = TRUE)
+#' vplot (p73$f1, p73$f2, p73$vowel, logaxes = TRUE, xsampa = FALSE)
 #' 
 NULL
 
@@ -212,8 +226,8 @@ NULL
 #' @examples
 #' 
 #' data(pb52)
-#' vowelplot (pb52$f1, pb52$f2, pb52$vowel, logaxes = 'xy', ellipses = TRUE, 
-#' xsampa = TRUE)
+#' vplot (pb52$f1, pb52$f2, pb52$vowel, logaxes = TRUE, ellipses = TRUE, 
+#' xsampa = FALSE)
 #' 
 NULL
 
@@ -242,8 +256,7 @@ NULL
 #' ## uncomment and run
 #' 
 #' #data (sound)
-#' #par (mar = c(4,4,1,1))
-#' #multiplot (n = 3, sizes = c(.25, .5, .25))  
+#' #par (mfrow = c(1,2), mar = c(4,4,1,1))
 #' 
 #' #plot (sound)
 #' #spectrogram (sound, dynamicrange = 50, maxfreq = 7000)
@@ -277,8 +290,8 @@ NULL
 #' @examples
 #' 
 #' data(t07)
-#' vowelplot (t07$f1, t07$f2, t07$vowel, logaxes = 'xy', meansOnly = TRUE, 
-#' xsampa = TRUE)
+#' vplot (t07$f1, t07$f2, t07$vowel, logaxes = TRUE, meansOnly = TRUE, 
+#' xsampa = FALSE)
 #' 
 NULL
 
@@ -337,7 +350,7 @@ NULL
 #' @examples
 #' 
 #' data(y96)
-#' vowelplot (y96$f1, y96$f2, y96$vowel, logaxes = 'xy', xsampa = TRUE)
+#' vplot (y96$f1, y96$f2, y96$vowel, logaxes = TRUE, xsampa = FALSE)
 #' 
 NULL
 
