@@ -32,7 +32,7 @@
 #' @references Snell, R.(1993). "Formant location from LPC analysis data", IEEE
 #' Transactions on Speech and Audio Processing, 1(2), pp. 129-134.
 #' @examples
-#' \dontruin{
+#' \dontrun{
 #' # make a synthetic vowel with a known set of 
 #' # formant frequencies and bandwidths
 #' sound = vowelsynth (ffs = c(500,1500,2500,3500,4500),
@@ -60,19 +60,26 @@ findformants = function (sound, fs = 10000, coeffs = NULL, maxbw = 600,
   if (length(coeffs) == 1) coeffs = lpc (sound, fs = fs, order = coeffs)
   
   roots = polyroot (rev(coeffs))
+  
+  # Check for unstable poles (outside unit circle)
+  pole_magnitudes = abs(roots)
+  if (any(pole_magnitudes > 1.01)) warning("LPC filter has poles outside unit circle. Formants may be unstable or unreliable.")
+  
   angs = atan2 (Im(roots), Re(roots))
   formants = round (angs * (fs/(2*pi)), 2)
   nums = order (formants)
   formants = formants[nums]
   bws = -(fs/pi) * log (abs(roots[nums]))
-  touse = (bws < maxbw & formants > minformant & formants < fs/2)
+  touse = (bws > 0 & bws < maxbw & formants > minformant & formants < fs/2)
   out = data.frame (formant = formants[touse], bandwidth = bws[touse])
   
   if (verify == TRUE){
-    multiplot (sizes = c(.7,.3), type = 'c', show = FALSE)
+    # Create a 2-column layout with 70/30 width ratio
+    layout(matrix(c(1, 2), 1, 2), widths = c(.7, .3))
     cols = rep (2:6, 10)
     freqresponse (1, coeffs, fs = fs)
-    if (length(sound) > 1) spectralslice (preemphasis(sound,fs=fs), fs = fs, add = TRUE, padding = 0, col = 1, lty = 'dotted')
+    if (length(sound) > 1) 
+      spectralslice (preemphasis(sound,fs=fs), fs = fs, add = TRUE, padding = 0, col = 1, lty = 'dotted')
     for (i in 1:nrow(out)){
       abline (v = out[i,1], lwd = 2, col = cols[i])
       if (showbws == TRUE) abline (v = out[i,1] + out[i,2], lty = 'dotted', col = cols[i])
@@ -80,7 +87,7 @@ findformants = function (sound, fs = 10000, coeffs = NULL, maxbw = 600,
     }    
     if (showrejected == TRUE) abline (v = formants[!touse], lty = 'dotted', lwd = 2)
     plot (roots[nums], xlim = range (-1.1,1.1), ylim = range (-1.1,1.1), pch = 4, lwd = 2, 
-          xlab = 'Real', ylab = 'Imaginary', col = !touse)
+          xlab = 'Real', ylab = 'Imaginary', col = 1)
     sdellipse (means = c(0,0), points = matrix (c(1,0,0,1),2,2), stdev = 1, density = .01)
     abline (h = 0, v = 0, lty = 'dotted')
     tmp = 0
