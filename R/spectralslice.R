@@ -27,7 +27,7 @@
 #' above the specified frequency.
 #' @param line If TRUE, a line spectrum is created.
 #' @param removeDC If TRUE, the DC component is removed.
-#' @param \dots any additional arguments will be passed to the internal calls
+#' @param ... any additional arguments will be passed to the internal calls
 #' of 'plot' or 'lines'.
 #' @return A dataframe with the following elements is returned:
 #' 
@@ -48,7 +48,7 @@
 #' ## line spectrum
 #' spectralslice (vowel[500:600], padding = 0, line = TRUE, fs = 10000)
 #' 
-#' 
+
 spectralslice = function (sound, padding = length(sound) * 2, fs = 1, show = TRUE, 
     add = FALSE, window = "kaiser", windowparameter = 3, zeromax = TRUE, 
     preemphasisf = 0, type, line = FALSE, removeDC = TRUE, ...){
@@ -72,9 +72,9 @@ spectralslice = function (sound, padding = length(sound) * 2, fs = 1, show = TRU
         hz = seq(0, 1, length.out = N + 1)
     hz = hz[hz <= fs/2]
     sound = c(sound, rep(0, padding))
-    power = abs(fft(sound))
-    power = power[1:length(hz)]/(n/2)
-    power = log(power, 10) * 20
+    power = abs(fft(sound))^2
+    power = power[1:length(hz)]/(N * n^2)
+    power = log(power, 10) * 10
     power[which(power == min(power))] = sort(power)[2]
     if (zeromax == TRUE) 
         power = power - max(power)
