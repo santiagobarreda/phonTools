@@ -81,7 +81,7 @@ formanttrack =
     #tmpacf = pitchtrack (section, timestep=0, fs=fs)[2] 
     #if (tmpacf>=periodicity){
       tmp = findformants (section, fs = cutoff*2, maxbw = maxbw, minformant = minformant, 
-      verify = F, coeffs = formants*2+3)[1:formants,]
+      verify = FALSE, coeffs = formants*2+3)[1:formants,]
       tmp[is.na(tmp[,1]),] = 0
       ffs = rbind (ffs, c(0,tmp[,1]))
       bws = rbind (bws, tmp[,2])
