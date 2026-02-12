@@ -66,17 +66,20 @@ pwelch = function (sound, points = 0, overlap = 0, padding = 0, window = 'hammin
   n = points + padding
   
   magnitude = rep (0, n)
+  window_vals = windowfunc(points, type = window)
+  window_power = sum(window_vals^2)
+  
   for (i in 1:length(spots)){
-    tmp = sound[spots[i]:(spots[i]+points-1)] * windowfunc(points, type = window)
+    tmp = sound[spots[i]:(spots[i]+points-1)] * window_vals
     tmp = c(tmp, rep (0, padding))
     tmp = fft(tmp)
     tmp = tmp * Conj (tmp)
     magnitude = magnitude + tmp
   }
-  magnitude = magnitude / length(spots)
+  magnitude = magnitude / (length(spots) * window_power * n)
   magnitude = magnitude[1:(n/2+1)]
   magnitude = abs(magnitude)
-  dB = log (magnitude, 10) * 20
+  dB = log (magnitude, 10) * 10
   if (zeromax == TRUE) dB = dB - max (dB)
   
   if (fs > 1) hz = seq (0, fs/2, length.out = (n/2)+1)
