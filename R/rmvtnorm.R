@@ -56,7 +56,7 @@ rmvtnorm = function (n = 1, k = 2, means = rep(0, k), sigma = diag(k)){
         stop("Inappropriate covariance matrix specified.")
     
     A = eig$vectors %*% diag(sqrt(eig$values))
-    x = matrix(rnorm(n * length(means), 0, 1), k, n)
+    x = matrix(rnorm(n * k), k, n)
     output = t(means + A %*% x)
     return(output)
 }
