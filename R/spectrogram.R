@@ -11,7 +11,6 @@
 #' function is defined.
 #' 
 #' @export
-#' @aliases spectrogram plot.spectrogram print.spectrogram
 #' @param sound Either a numeric vector representing a sequence of samples
 #' taken from a sound wave or a sound object created with the loadsound() or
 #' makesound() functions.
@@ -97,17 +96,20 @@ spectrogram = function (
   padding = n*padding
   if ((n + padding)%%2) padding = padding + 1
   N = n + padding
+  
+  # Pre-compute window once
+  win = windowfunc(numeric(n), window, windowparameter)
+  pad_zeros = rep(0, padding)
 
-  spect = sapply (spots,function(x){
-    tmp = sound[x:(x+n-1)] * windowfunc(sound[x:(x+n-1)], window, windowparameter);
-    tmp = c(tmp, rep(0, padding));
-    tmp = tmp - mean(tmp);
-    tmp = fft (tmp)[1:(N/2+1)]; 
-    tmp = abs(tmp)^2;
-    tmp = log(tmp, 10) * 10;
+  # Vectorized FFT computation
+  spect = lapply(spots, function(x) {
+    tmp = sound[x:(x+n-1)]
+    tmp = (tmp - mean(tmp)) * win  # DC removal and windowing in one step
+    tmp = c(tmp, pad_zeros)
+    tmp = abs(fft(tmp)[1:(N/2+1)])^2 / N  # Compute power in one step
+    tmp = log10(tmp) * 10  # Use log10 directly (faster)
   })
-  spect = t(spect)
-  for (i in 1:nrow(spect)) spect[i,1] = min(spect[i,-1])
+  spect = do.call(rbind, spect)
 	
   hz = (0:(N/2)) * (fs/N)
   times = spots * (1000/fs)
