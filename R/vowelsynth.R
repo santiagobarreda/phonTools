@@ -39,11 +39,13 @@
 #' only a vector representing the sound wave is returned.
 #' @param noisesd Standard deviation of noise to be added to the source, as
 #' a proportion of the source RMS amplitude.
-#' @param noiseshape If TRUE noise varies with glottis openin
-#' @param power A desired power contour can be specified. Must be of the same
-#' length as the output sound, or the sound is truncated to the length of this
-#' vector. 
-#' @param preemph If TRUE, the output sound is preemphasized.
+#' @param noiseshape If TRUE, noise amplitude is shaped inversely with glottal
+#' opening to simulate natural voice source characteristics.
+#' @param power A desired power contour can be specified as a numeric vector.
+#' Must be of the same length as the output sound, or the sound is truncated
+#' to the length of this vector. If NULL, a default envelope is generated.
+#' @param preemph If TRUE, the output sound is preemphasized with a coefficient
+#' of 0.94.
 #' @return A vector or 'sound' object representing the filtered sound.
 #' @author Santiago Barreda <sbarreda@@ucdavis.edu>
 #' @references Klatt, D. H. (1980). Software for a cascade/parallel formant
@@ -79,15 +81,12 @@
 #' }
 #' 
 
-vowelsynth = function (ffs = c(270, 2200, 2800, 3400, 4400), fbw = 0.06, 
-                       dur = 300, f0precision = 10, f0 = c(120, 100), fs = 10000, 
-                       verify = FALSE, returnsound = TRUE, noisesd = 0.5, 
-                       power = NULL, noiseshape = FALSE,preemph=TRUE){
-  
-  if (dur < 30) stop ('Duration must be at least 30 ms.')
-  if (length (f0) > 2) stop ('Only initial and final f0 may be specified.')
-  
-  
+vowelsynth = function (ffs = c(270, 2200, 2800, 3400, 4400), 
+                       fbw = 0.06, dur = 300, f0precision = 10,
+                       f0 = c(120, 100), fs = 10000, verify = FALSE, 
+                       returnsound = TRUE, noisesd = 0.5, 
+                       power = NULL, noiseshape = TRUE,preemph=TRUE){
+
   T = 1/fs
   n = round(dur/1000/T)
   if (!is.null(power)) 
@@ -97,60 +96,66 @@ vowelsynth = function (ffs = c(270, 2200, 2800, 3400, 4400), fbw = 0.06,
   if (length(f0) == 1) 
     f0 = c(f0, f0)
   f0 = exp(seq(log(f0[1]), log(f0[2]), length.out = n))
+  # Pre-interpolate f0 to high precision for smooth contour
+  f0_interp = approx(1:n, f0, xout = seq(1, n, length.out = n * f0precision))$y
+  
   vsource = NULL
-  spot = 1
   while (length(vsource) < n * f0precision) { ## 5
-    tmp = f0[spot]
-    cycle = fs/tmp
+    # Index into f0_interp based on current position in output
+    current_idx = min(length(vsource) + 1, length(f0_interp))
+    f0_current = f0_interp[current_idx]
+    cycle = fs / f0_current
     tmp = 2 * seq(0, 1, 1/(round(cycle*(f0precision-1)))) - 3 * seq(0, 1, 1/(round(cycle *(f0precision-1))))^2  # 4 ->9
     tmp = c(rep(0, cycle), tmp)
     vsource = c(vsource, tmp)
-    spot = spot + cycle
   }
-  vsource = phonTools::resample(vsource, fs, fs * f0precision, n_passes = 6)  # 5
-  
-  noise = rnorm(length(vsource), 1)
+  vsource = phonTools::resample(vsource, fs, fs * f0precision)
+
   cycle = fs/mean (f0)/4
   noiseamp = filter(vsource, rep(1 / cycle, cycle), sides = 2)
   noiseamp = noiseamp - min(noiseamp, na.rm=TRUE)
   noiseamp = noiseamp / max(noiseamp, na.rm=TRUE)
   noiseamp[is.na (noiseamp)] = 0
-  if (noiseshape) noise = noise * ((1-noiseamp))
-  noise = (noise/sd(noise)) *(sd(vsource)*noisesd)
   
-  vsource = vsource + noise
-  
-  par (mfrow = c(1,2), mar = c(4,4,1,1))
-  plot (vsource, type="l")
-  lines (noise, col=2)
-  plot (vsource, type="l")
+  #par (mfrow = c(1,2), mar = c(4,4,1,1))
+  #plot (vsource, type="l")
+  #lines (noise, col=2)
+  #plot (vsource, type="l")
   
   vsource = vsource[1:n]
   vsource = jitter(vsource)
   
   if (preemph) vsource = phonTools::preemphasis(vsource, coeff = 0.94)
   
-  x = c(1, 20/(1000/fs),40/(1000/fs), 50/(1000/fs), n - (30/(1000/fs)), 
-        n)
+  x = c(1, 20/(1000/fs), 40/(1000/fs), 50/(1000/fs), n - (30/(1000/fs)), n)
+  x = pmin(pmax(x, 1), n)  # Clamp envelope points to valid range [1, n]
   if (is.null(power)) 
-    power = phonTools::interpolate(x, y = c(10,30, 55, 60, 55, 30), increment = 1, 
-                                   type = "linear")[1:n, 2]
+    power = phonTools::interpolate(x, y = c(10, 30, 55, 60, 55, 30), increment = 1, 
+                        type = "linear")[1:n, 2]
   power = 10^(power/20)
   power = jitter(power, factor = 0.01)
   vsource = vsource * power
+  
+  # Filter voiced source through formants
   output = phonTools::Ffilter(vsource, ffs = ffs, fs = fs, verify = FALSE, 
-                              bwp = fbw)
+                   bwp = fbw)
   output = output * power
-  #output = output + rnorm(length(output), sd = sd(output) * 
-  #                          noise2)
+  
+  # Add aspiration component: filter noise through same formants
+  aspiration = rnorm(length(vsource))
+  if (noiseshape) aspiration = aspiration * (1 - noiseamp[1:length(vsource)])
+  aspiration = aspiration / sd(aspiration) * sd(vsource)
+  aspiration = aspiration * power * noisesd * 0.5  # Scale aspiration relative to voicing
+  aspiration = phonTools::Ffilter(aspiration, ffs = ffs, fs = fs, verify = FALSE, 
+                         bwp = fbw)
+  #aspiration = phonTools::preemphasis(aspiration, coeff = -0.94)
+
+  
+  # Mix aspiration with voiced output
+  output = output + aspiration
+  
   output = output/(max(abs(output)) * 1.05)
   if (returnsound == TRUE) 
     output = phonTools::makesound(output, "sound.wav", fs = fs)
   return(output)
 }
-
-
-
-
-
-
