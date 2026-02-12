@@ -28,7 +28,7 @@
 #' @examples
 #' 
 #' 
-#' ## compare x-sampa and IPA vpwel charts
+#' ## compare x-sampa and IPA vowel charts
 #' #xsampatoIPA ()
 #' ## some examples
 #' #IPA = xsampatoIPA (c('I','3','e','Q'))
@@ -36,8 +36,8 @@
 #' 
 #' 
 xsampatoIPA = function (vowels, chart = FALSE, verify = FALSE){
-  oldpar = par()
-  if (missing(vowels) | chart == TRUE){ 
+  oldpar = par(no.readonly = TRUE)
+  if (missing(vowels) || chart == TRUE){ 
     par (mfrow = c(1,2))
     IPA = ipainfo()[c(1,4,5)]
     plot (IPA[[2]]$frontness+(IPA[[2]]$rounded*.25), IPA[[2]]$height, pch = IPA[[1]],cex = 1.5, 
