@@ -78,7 +78,7 @@ pitchtrack = function (sound, f0range = c(60,400), timestep = 2, fs = 22050, min
     lag = rep (0, length(spots))
     for (i in 1:length(spots)){
       section = sound[(spots[i]-half):(spots[i]+half)] 
-      acf = fastacf (section, lag.max = maxlag, show = F, correct = correction)    
+      acf = fastacf (section, lag.max = maxlag, show = FALSE, correct = correction)    
       peaks = peakfind (acf[,2], show = FALSE)
       lag[i] = peaks[order(acf$acf[peaks], decreasing = TRUE)[1]]
       if (is.na(lag[i])) lag[i] = 0
@@ -101,7 +101,7 @@ pitchtrack = function (sound, f0range = c(60,400), timestep = 2, fs = 22050, min
     output =  data.frame (time = round(spots,1), f0 = round(f0,2), acf = round(corr,4))
   }
   if (timestep==0){
-    acf = fastacf (sound, lag.max = maxlag, show = F, correct = correction)    
+    acf = fastacf (sound, lag.max = maxlag, show = FALSE, correct = correction)    
     peaks = peakfind (acf[,2], show = FALSE)
     lag = peaks[order(acf$acf[peaks], decreasing = TRUE)[1]]
     if (is.na(lag)) lag = 0
