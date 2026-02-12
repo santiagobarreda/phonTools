@@ -20,7 +20,6 @@
 #' Exporting plots directly as images works 'out of the box'**
 #' 
 #' @export
-#' @aliases pickIPA ipainfo
 #' @param vowels An optional vector of vowel labels that you would like to plot
 #' using IPA symbols.
 #' @param n If no vowel vector is provided, the number of symbols desired.
@@ -47,7 +46,7 @@
 #' ## in the Peterson and Barney data. 
 #' 
 #' # data (pb52)
-#' # tmp = pickIPA (pb52$vowel, description = TRUE, xsampa = TRUE)
+#' # tmp = pickIPA (pb52$vowel, description = TRUE, xsampa = FALSE)
 #' # tmp
 #' 
 pickIPA = function (vowels, n = 0, xsampa = FALSE, description = FALSE, verify = TRUE){
@@ -57,7 +56,7 @@ pickIPA = function (vowels, n = 0, xsampa = FALSE, description = FALSE, verify =
   if (vector){
     vowels = as.factor (vowels)
     vtypes = levels(vowels)
-    nvowels = ntypes (vowels)
+    nvowels = length(table(vowels))
     n = nvowels
   }
   IPA = ipainfo()[c(1,4,2,5)]
@@ -67,15 +66,24 @@ pickIPA = function (vowels, n = 0, xsampa = FALSE, description = FALSE, verify =
   axis (side = 1, at = c(1.15,2.15,3.15), c('Front','Mid','Back'), cex.axis = 1.3)
   axis (side = 2, at = c(1,2,3,4), c('open','open-mid','close-mid','close'), cex.axis = 1.3)
 
-  selected = rep(0,n)
+  selected = rep(0, n)
   for (i in 1:n){ 
-    if (vector) cat ('Please select ->  ', vtypes[i], '\n\n')
-    if (!vector) cat ('Please select vowel ', i, '\n\n')
+    if (vector) cat (sprintf('Please select %s (%d/%d)\n', vtypes[i], i, n))
+    if (!vector) cat (sprintf('Please select vowel %d/%d\n', i, n))
     flush.console()
-    selected[i] = identify (IPA[[2]]$frontness+(IPA[[2]]$rounded*.25), IPA[[2]]$height,'', n = 1)  
+    selected[i] = identify (IPA[[2]]$frontness+(IPA[[2]]$rounded*.25), IPA[[2]]$height,'', n = 1)
+    
+    # Mark selection with a red circle on the plot
+    x_sel = IPA[[2]]$frontness[selected[i]] + IPA[[2]]$rounded[selected[i]] * .25
+    y_sel = IPA[[2]]$height[selected[i]]
+    points(x_sel, y_sel, pch = 1, cex = 3.5, col = 'red', lwd = 2)
+    cat(sprintf('Selected: %s\n\n', IPA[[4]][selected[i]]))
   }
 
-  if (verify == TRUE) plot (1:n, rep(1,n), pch = IPA[[1]][selected], ylab='',yaxt='n', xlab='Selection',cex = 2)
+  if (verify == TRUE) {
+    plot (1:n, rep(1, n), pch = IPA[[1]][selected], ylab='', yaxt='n', 
+          xlab='Selection', cex = 2, main = 'Confirmed Selections')
+  }
   if (vector == TRUE) selected = selected[as.numeric(vowels)]
   out = list (IPA = IPA[[1]][selected])
   if (xsampa == TRUE) out$xsampa = IPA[[4]][selected]
