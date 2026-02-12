@@ -42,7 +42,8 @@ sinusoid = function (freqs, amps = rep(1, length(freqs)), dur = 50, phases = rep
   if (length (freqs) != length (amps)) stop ('Must specify same number of frequencies and amplitudes.')
   if (length (freqs) != length (phases)) stop ('Must specify same number of frequencies and initial phases.')
   amps = abs(amps)
-  t = seq (0, dur/1000, 1/fs)  
+  num_samples = round(dur/1000 * fs)
+  t = seq(0, (num_samples-1)/fs, 1/fs)
   n = length (freqs)
   waves = matrix (0, length (t), n)
 
@@ -54,7 +55,7 @@ sinusoid = function (freqs, amps = rep(1, length(freqs)), dur = 50, phases = rep
   if (sum == TRUE) waves = cbind (waves, rowSums (waves))
   
   if (show == TRUE){
-    oldpar = par()
+    oldpar = par(no.readonly = TRUE)
     if (sum == TRUE) par (mfrow = c(2,1))
     plot (t*1000,waves[,1], type = 'l', ylab = 'Amplitude', xlab = 'Time (ms)', ylim = c(-max(amps),max(amps)), lwd = 2,xaxs='i')
     abline (h = 0)
