@@ -74,7 +74,6 @@ show = TRUE, means = NULL, se = FALSE, ...){
     if (is.numeric(se)) sigma = sigma / se
   }
   A = eigen(sigma)$vectors %*% (diag(sqrt(eigen(sigma)$values)) * stdev)
-  points = t(colMeans(points) + A%*%x)
   if (is.null(means)) points = t(colMeans(points) + A%*%x)
   if (!is.null(means)) points = t(means + A%*%x)
   
