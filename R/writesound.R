@@ -44,6 +44,10 @@ writesound = function (samples, filename = '', fs = 22050, bit = 16){
   if (!is.numeric(samples)) stop("Non-numeric sample values given.")
   if (filename == '') filename = paste (deparse(substitute(samples)), '.wav', sep='')
 
+  # Scale audio to appropriate bit depth (e.g., 16-bit: -32768 to 32767)
+  max_amplitude = 2^(bit - 1) - 1
+  samples = round(samples * max_amplitude)
+  
   tmp_sound = tuneR::Wave (left = samples, samp.rate = fs, bit = bit)
   tuneR::writeWave(tmp_sound, filename)
 }
