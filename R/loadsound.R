@@ -8,7 +8,6 @@
 #' package interact with 'sound' objects.
 #' 
 #' @export
-#' @aliases loadsound print.sound plot.sound
 #' @param filename A string indicating the file name of the WAV file to be
 #' loaded. If no filename is provided, a dialog box will open allowing the user
 #' to select a file.
