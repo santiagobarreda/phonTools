@@ -83,15 +83,15 @@
 #' wandf = normalize (pb52[,7:9], pb52$speaker, pb52$vowel,
 #' method = 'wandf', corners =  c('i','A'))
 #' 
-#' ## compare normalization methods using vowelplot().
+#' ## compare normalization methods using vplot().
 #' par (mfrow = c(2,2), mar = c(4,4,3,1))
-#' vowelplot (neareyE[,1], neareyE[,2], neareyE$vowel, alternateAxes = TRUE, 
+#' vplot (neareyE[,1], neareyE[,2], neareyE$vowel, alternateAxes = TRUE, 
 #'   pointType = 16, main = 'neareyE', ellipses = TRUE)
-#' vowelplot (neareyI[,1], neareyI[,2], neareyI$vowel, alternateAxes = TRUE, 
+#' vplot (neareyI[,1], neareyI[,2], neareyI$vowel, alternateAxes = TRUE, 
 #'   pointType = 16, main = 'neareyI', ellipses = TRUE)
-#' vowelplot (lobanov[,1], lobanov[,2], lobanov$vowel, alternateAxes = TRUE, 
+#' vplot (lobanov[,1], lobanov[,2], lobanov$vowel, alternateAxes = TRUE, 
 #'   pointType = 16, main = 'lobanov', ellipses = TRUE)
-#' vowelplot (wandf[,1], wandf[,2], wandf$vowel, alternateAxes = TRUE, 
+#' vplot (wandf[,1], wandf[,2], wandf$vowel, alternateAxes = TRUE, 
 #'   pointType = 16, main = 'wandf', ellipses = TRUE)
 #' 
 normalize = function (formants, speakers, vowels, method = 'neareyE', corners = NULL){
@@ -139,6 +139,7 @@ normalize = function (formants, speakers, vowels, method = 'neareyE', corners = 
       }
       mffs = matrix (mff, nrow (formants[temp,]), nffs, byrow = TRUE)
       sdffs = matrix (sdff, nrow (formants[temp,]), nffs, byrow = TRUE)
+      sdffs[sdffs == 0] = 1  # Avoid division by zero for constant values
       formants[temp, ] = (formants[temp, ] - mffs) / sdffs
   }}
   if (method == 'barreda'){
