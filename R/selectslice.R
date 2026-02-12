@@ -45,9 +45,20 @@ selectslice = function (specobject, n = 1, plot = TRUE,...){
   times = rep(times1, length(freqs1))
   freqs = rep(freqs1, each = length(times1))
 
-  tmp = identify(times, freqs, "", n = n)
-  time = sort(times[tmp])
-
+  selected_times = c()
+  for (i in 1:n) {
+    cat(sprintf('Click to select time %d/%d\n', i, n))
+    tmp = identify(times, freqs, "", n = 1)
+    selected_time = times[tmp]
+    selected_times = c(selected_times, selected_time)
+    
+    # Mark selection on plot with a red vertical line
+    abline(v = selected_time, col = 'red', lwd = 2, lty = 'dashed')
+    cat(sprintf('Selected: %.2f ms\n', selected_time))
+  }
+  
+  time = sort(selected_times)
+  
   slices = NULL
   for (i in 1:n) slices = cbind (slices, spect[rownames(spect) == time[i],])
   colnames (slices) = time
