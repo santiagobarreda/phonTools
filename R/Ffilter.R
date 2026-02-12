@@ -93,6 +93,10 @@ Ffilter = function (sound, ffs, bwp = 0.06, minbw = 60, fs = 22050, verify = FAL
   
   percent = TRUE
   if (max(bwp) > 1) percent = FALSE
+  if (any(ffs <= 0 | ffs >= fs/2))
+    stop("Formant frequencies must be > 0 and < fs/2.")
+  if (any(bwp <= 0))
+    stop("Bandwidths must be positive values.")
   output = sound * 0
   T = 1/fs
   old = sound
@@ -112,12 +116,12 @@ Ffilter = function (sound, ffs, bwp = 0.06, minbw = 60, fs = 22050, verify = FAL
     new[1] = old[1] * A[1]
     new[2] = old[2] * A[2] - B[2] * new[1]
     for (i in 3:length(old)) new[i] = old[i] * A[i] + 
-      new[i-1] * B[i] * sqrt(A[i]/A[i - 1]) + 
-      new[i - 2] * C[i] * sqrt(A[i]/A[i - 1])
+      new[i-1] * B[i] + 
+      new[i - 2] * C[i]
     old = new
   }
   if (verify == TRUE) {
-    oldpar = par()
+    oldpar = par(no.readonly = TRUE)
     par(mfrow = c(2, 1))
     spectralslice(sound, fs = fs, ylim = c(-75, 5))
     spectralslice(new, fs = fs, ylim = c(-75, 5))
